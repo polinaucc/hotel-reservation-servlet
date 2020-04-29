@@ -26,6 +26,7 @@ public class ClientService {
             client.setLastName(signUpDto.getLastName());
             client.setPassport(signUpDto.getPassport());
             client.setBirthday(signUpDto.getBirthday());
+            client.setUser(user);
             clientDao.create(client);
         } catch (Exception e) {
             e.printStackTrace();

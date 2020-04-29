@@ -72,7 +72,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public List<Client> findAll() {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_CLIENT_FIND_ALL)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_CLIENT_FIND_ALL)) {
             return findClientsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
@@ -83,7 +83,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void close(){
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {

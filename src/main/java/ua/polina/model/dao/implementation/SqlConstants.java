@@ -29,8 +29,8 @@ public interface SqlConstants {
 
     String SQL_USER_INSERT = " INSERT into users (" +
             "email, " +
-            "password, " +
-            "username) " +
+            "username, " +
+            "password) " +
             "VALUES(?,?,?)";
 
     String SQL_USER_FIND_BY_ID = "SELECT * FROM users WHERE id=?";

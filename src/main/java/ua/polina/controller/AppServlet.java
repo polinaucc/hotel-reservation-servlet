@@ -2,6 +2,8 @@ package ua.polina.controller;
 
 import ua.polina.controller.command.Command;
 import ua.polina.controller.command.admin.AddDescriptionCommand;
+import ua.polina.controller.command.auth.RegisterCommand;
+import ua.polina.model.service.ClientService;
 import ua.polina.model.service.DescriptionService;
 
 import javax.servlet.ServletConfig;
@@ -15,15 +17,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/add-description")
+@WebServlet(urlPatterns = {"/add-description", "/register"})
 public class AppServlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<>();
 
     private DescriptionService descriptionService = new DescriptionService();
+    private ClientService clientService = new ClientService();
 
     public void init(ServletConfig servletConfig){
-        System.out.println("name:"+servletConfig.getInitParameter("name"));
         commands.put("add-description", new AddDescriptionCommand(descriptionService));
+        commands.put("register", new RegisterCommand(clientService));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
