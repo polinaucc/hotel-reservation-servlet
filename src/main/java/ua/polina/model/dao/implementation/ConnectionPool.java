@@ -11,7 +11,8 @@ public class ConnectionPool {
              synchronized (ConnectionPool.class){
                  if(dataSource==null){
                      BasicDataSource ds = new BasicDataSource();
-                     ds.setUrl("dbc:postgresql://localhost:5432/hotel-reservation");
+                     ds.setDriverClassName("org.postgresql.Driver");
+                     ds.setUrl("jdbc:postgresql://localhost:5432/hotel-reservation-servlet");
                      ds.setUsername("postgres");
                      ds.setPassword("p12042000");
                      ds.setMinIdle(5);
