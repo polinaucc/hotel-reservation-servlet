@@ -19,7 +19,6 @@ public class SecurityFilter implements Filter {
 
         String url = request.getRequestURI();
         url = url.replace("/", "");
-        System.out.println("URL: " + url);
         if(!SecurityConfig.isSecured(url)){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
@@ -32,11 +31,12 @@ public class SecurityFilter implements Filter {
             }
         }
 
-        if(SecurityConfig.isAccessAllowed(url, user.getAuthorities())){
-            filterChain.doFilter(servletRequest, servletResponse);
-        }
-        else {
-            response.sendRedirect("/ok.jsp");
+        if(user!=null) {
+            if (SecurityConfig.isAccessAllowed(url, user.getAuthorities())) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                response.sendRedirect("/ok.jsp");
+            }
         }
     }
 

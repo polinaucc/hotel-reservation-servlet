@@ -26,11 +26,6 @@ public class LoginCommand extends MultipleMethodCommand {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Optional<User> user = userService.getUserByUsername(username);
-        System.out.println("Username: " + username);
-        if (user.isPresent()){
-            System.out.println("PRESENT");
-            System.out.println("User:    " + user.get().getEmail());
-        }
         if (user.isEmpty() || !CommandBCryptUtility.isPasswordMatches(password, user.get().getPassword())) {
             return "redirect:/login?error";
         } else {
