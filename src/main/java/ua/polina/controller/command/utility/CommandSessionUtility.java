@@ -9,6 +9,7 @@ public class CommandSessionUtility {
     public static void setUserForSession(HttpServletRequest request, User user){
         HttpSession session = request.getSession();
         session.setAttribute("principals", user);
+        System.out.println("principals: " + user.getEmail());
     }
 
     public static void logoutFromSession(HttpServletRequest request){

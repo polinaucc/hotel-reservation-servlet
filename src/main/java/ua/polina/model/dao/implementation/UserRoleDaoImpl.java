@@ -66,7 +66,7 @@ public class UserRoleDaoImpl implements UserRoleDao {
     }
 
     @Override
-    public List<UserRole> findRolesByUser(Long userId) {
+    public List<Role> findRolesByUser(Long userId) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_ROLE_FIND_BY_USER)) {
             preparedStatement.setLong(1, userId);
             return findRolesByPreparedStatement(preparedStatement);
@@ -83,20 +83,16 @@ public class UserRoleDaoImpl implements UserRoleDao {
         preparedStatement.setString(2, entity.getRole().toString());
     }
 
-    private List<UserRole> findRolesByPreparedStatement(PreparedStatement preparedStatement) throws Exception {
-        List<UserRole> userRoles = new ArrayList<>();
+    private List<Role> findRolesByPreparedStatement(PreparedStatement preparedStatement) throws Exception {
+        List<Role> roles = new ArrayList<>();
         ResultSet resultSet = preparedStatement.executeQuery();
         UserDao userDao = daoFactory.createUserDao();
 
         while (resultSet.next()){
-            UserRole userRole = new UserRole();
-            User user = userDao.findById(resultSet.getLong("user_id"));
             Role role = Role.valueOf(resultSet.getString("authorities"));
-            userRole.setUser(user);
-            userRole.setRole(role);
-            userRoles.add(userRole);
+            roles.add(role);
         }
         userDao.close();
-        return userRoles;
+        return roles;
     }
 }

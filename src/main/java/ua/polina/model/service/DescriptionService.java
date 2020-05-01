@@ -29,6 +29,7 @@ public class DescriptionService {
 
     public Optional<Description> getDescriptionByParameters(RequestDto requestDto){
         try(DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
+            System.out.println(requestDto);
             return descriptionDao.findDescriptionByRoomTypeAndCountOfPersonsAndCountOfBeds(
                     requestDto.getRoomType(),
                     requestDto.getCountOfPerson(),

@@ -50,4 +50,15 @@ public class RequestDto {
     public void setCheckOutDate(LocalDate checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
+
+    @Override
+    public String toString() {
+        return "RequestDto{" +
+                "roomType=" + roomType +
+                ", countOfPerson=" + countOfPerson +
+                ", countOfBeds=" + countOfBeds +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                '}';
+    }
 }

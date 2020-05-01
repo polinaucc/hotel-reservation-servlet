@@ -63,7 +63,7 @@ public interface SqlConstants {
     String SQL_DESCRIPTION_DELETE_BY_ID = "DELETE FROM description WHERE id=?";
 
     String SQL_DESCRIPTION_FIND_BY_ROOM_TYPE_COUNT_BEDS_COUNT_PERSONS = "SELECT * FROM description WHERE " +
-            "room_type=? AND count_beds=? AND count_persons=?";
+            "room_type=? AND count_persons=? AND count_beds=?";
 
     String SQL_DESCRIPTION_FIND_BY_ID = "SELECT * FROM description WHERE id=?";
 

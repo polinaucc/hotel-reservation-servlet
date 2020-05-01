@@ -14,9 +14,14 @@ public class SecurityConfig {
         init();
     }
     private static void init(){
-        Set<String> adminGetUrlPatterns = new HashSet<>();
-        adminGetUrlPatterns.add("add-description");
-        mapConfig.put(Role.ADMIN, adminGetUrlPatterns);
+        Set<String> adminUrlPatterns = new HashSet<>();
+        adminUrlPatterns.add("add-description");
+
+        Set<String> clientUrlPatterns = new HashSet<>();
+        clientUrlPatterns.add("add-request");
+
+        mapConfig.put(Role.ADMIN, adminUrlPatterns);
+        mapConfig.put(Role.CLIENT, clientUrlPatterns);
     }
 
     public static  boolean isSecured(String url){

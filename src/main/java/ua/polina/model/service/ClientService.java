@@ -3,13 +3,16 @@ package ua.polina.model.service;
 import ua.polina.model.dao.ClientDao;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.UserDao;
+import ua.polina.model.dao.UserRoleDao;
 import ua.polina.model.dto.SignUpDto;
 import ua.polina.model.entity.Client;
 import ua.polina.model.entity.Role;
 import ua.polina.model.entity.User;
+import ua.polina.model.entity.UserRole;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 public class ClientService {
     private final DaoFactory daoFactory = DaoFactory.getInstance();
@@ -44,6 +47,7 @@ public class ClientService {
             user.setEmail(signUpDto.getEmail());
             user.setPassword(signUpDto.getPassword());
             userDao.create(user);
+            saveRoles(user);
             return user;
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,8 +55,22 @@ public class ClientService {
         return null;
     }
 
-    public Optional<Client> getClientByUser(User user){
-        try(ClientDao clientDao = daoFactory.createClientDao()) {
+    private void saveRoles(User user) {
+        try (UserRoleDao userRoleDao = daoFactory.createUserRoleDao()) {
+            UserRole userRole = new UserRole();
+            Set<Role> roles = user.getAuthorities();
+            for (Role r : roles) {
+                userRole.setUser(user);
+                userRole.setRole(r);
+                userRoleDao.create(userRole);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Optional<Client> getClientByUser(User user) {
+        try (ClientDao clientDao = daoFactory.createClientDao()) {
             return clientDao.findByUser(user.getId());
         } catch (Exception e) {
             e.printStackTrace();

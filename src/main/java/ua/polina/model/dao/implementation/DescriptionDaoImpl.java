@@ -100,8 +100,7 @@ public class DescriptionDaoImpl implements DescriptionDao {
         ResultSet resultSet = preparedStatement.executeQuery();
         DescriptionMapper descriptionMapper = new DescriptionMapper();
         while (resultSet.next()) {
-            Description description = descriptionMapper.resultSetToEntity(resultSet);
-            description = descriptionMapper.makeUnique(descriptions, description);
+            descriptionMapper.makeUnique(descriptions, descriptionMapper.resultSetToEntity(resultSet));
         }
         return new ArrayList<>(descriptions.values());
     }
@@ -110,6 +109,9 @@ public class DescriptionDaoImpl implements DescriptionDao {
     public Optional<Description> findDescriptionByRoomTypeAndCountOfPersonsAndCountOfBeds(
             RoomType type, int countOfPersons, int countOfBeds) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_DESCRIPTION_FIND_BY_ROOM_TYPE_COUNT_BEDS_COUNT_PERSONS)) {
+            preparedStatement.setString(1, type.name());
+            preparedStatement.setInt(2, countOfPersons);
+            preparedStatement.setInt(3, countOfBeds);
             return Optional.of(findDescriptionsByPreparedStatement(preparedStatement).get(0));
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());

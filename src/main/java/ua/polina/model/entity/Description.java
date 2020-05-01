@@ -9,6 +9,17 @@ public class Description {
     private int countOfBeds;
     private BigDecimal costPerNight;
 
+    @Override
+    public String toString() {
+        return "Description{" +
+                "id=" + id +
+                ", roomType=" + roomType +
+                ", countOfPersons=" + countOfPersons +
+                ", countOfBeds=" + countOfBeds +
+                ", costPerNight=" + costPerNight +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

@@ -14,7 +14,7 @@ public class UserMapper implements Mapper<User> {
         user.setId(resultSet.getLong("id"));
         user.setEmail(resultSet.getString("email"));
         user.setPassword(resultSet.getString("password"));
-        user.setAuthorities(new HashSet<>());
+        user.setUsername(resultSet.getString("username"));
         return user;
     }
 

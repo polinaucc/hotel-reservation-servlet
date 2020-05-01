@@ -102,12 +102,8 @@ public class UserDaoImpl implements UserDao {
 
         while (resultSet.next()) {
             User user = userMapper.resultSetToEntity(resultSet);
-            List<UserRole> userRoles = userRoleDao.findRolesByUser(user.getId());
-            List<Role> roles = new ArrayList<>();
-            for (UserRole ur : userRoles) {
-                roles.add(ur.getRole());
-            }
-            user.setAuthorities(new HashSet<>(roles));
+            List<Role> userRoles = userRoleDao.findRolesByUser(user.getId());
+            user.setAuthorities(new HashSet<>(userRoles));
             userMapper.makeUnique(users, user);
         }
         userRoleDao.close();

@@ -12,7 +12,7 @@ public class DescriptionMapper implements Mapper<Description> {
     public Description resultSetToEntity(ResultSet resultSet) throws SQLException {
         Description description = new Description();
         description.setId(resultSet.getLong("id"));
-        description.setRoomType(RoomType.valueOf(resultSet.getString("rom_type")));
+        description.setRoomType(RoomType.valueOf(resultSet.getString("room_type")));
         description.setCountOfPersons(resultSet.getInt("count_persons"));
         description.setCountOfBeds(resultSet.getInt("count_beds"));
         description.setCostPerNight(resultSet.getBigDecimal("cost"));

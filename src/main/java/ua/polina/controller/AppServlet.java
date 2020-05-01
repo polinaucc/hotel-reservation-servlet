@@ -5,8 +5,11 @@ import ua.polina.controller.command.admin.AddDescriptionCommand;
 import ua.polina.controller.command.auth.LoginCommand;
 import ua.polina.controller.command.auth.LogoutCommand;
 import ua.polina.controller.command.auth.RegisterCommand;
+import ua.polina.controller.command.client.AddRequestCommand;
+import ua.polina.model.entity.Request;
 import ua.polina.model.service.ClientService;
 import ua.polina.model.service.DescriptionService;
+import ua.polina.model.service.RequestService;
 import ua.polina.model.service.UserService;
 
 import javax.servlet.ServletConfig;
@@ -27,12 +30,14 @@ public class AppServlet extends HttpServlet {
     private DescriptionService descriptionService = new DescriptionService();
     private ClientService clientService = new ClientService();
     private UserService userService = new UserService();
+    private RequestService requestService = new RequestService();
 
     public void init(ServletConfig servletConfig){
         commands.put("add-description", new AddDescriptionCommand(descriptionService));
         commands.put("register", new RegisterCommand(clientService));
         commands.put("login", new LoginCommand(userService));
         commands.put("logout", new LogoutCommand());
+        commands.put("add-request", new AddRequestCommand(requestService, descriptionService, clientService));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
