@@ -35,6 +35,8 @@ public interface SqlConstants {
 
     String SQL_USER_FIND_BY_ID = "SELECT * FROM users WHERE id=?";
 
+    String SQL_USER_FIND_BY_USERNAME = "SELECT * FROM users WHERE username=?";
+
     String SQL_USER_ROLE_INSERT = "INSERT into user_role (" +
             "user_id, " +
             "authorities) " +

@@ -60,6 +60,19 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    @Override
+    public Optional<User> findByUsername(String username) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_BY_USERNAME)){
+            preparedStatement.setString(1, username);
+            return Optional.of(findUsersByPreparedStatement(preparedStatement).get(0));
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
     //TODO: implement method
     @Override
     public List<User> findAll() {

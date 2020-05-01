@@ -9,5 +9,6 @@ public class CommandBCryptUtility {
 
     public static boolean isPasswordMatches(String password, String hashedPassword){
         return BCrypt.checkpw(password, hashedPassword);
+
     }
 }
