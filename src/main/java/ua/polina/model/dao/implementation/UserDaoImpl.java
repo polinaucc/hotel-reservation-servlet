@@ -79,6 +79,12 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    //TODO: to implement
+    @Override
+    public List<User> findAll(Integer offset, Integer limit) {
+        return null;
+    }
+
     @Override
     public void close() {
         try {

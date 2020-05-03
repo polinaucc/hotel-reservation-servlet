@@ -81,6 +81,22 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
+    public List<Request> findAll(Integer offset, Integer limit) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_REQUEST_FIND_ALL_PAGINATION)) {
+
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+
+            return findRequestsByPreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
     public void close() {
         try {
             connection.close();
@@ -100,6 +116,20 @@ public class RequestDaoImpl implements RequestDao {
         }
         return null;
     }
+
+    @Override
+    public Integer countAll() {
+        try (PreparedStatement statement = connection.prepareStatement(SqlConstants.SQL_REQUEST_COUNT_ALL)) {
+
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next() ? resultSet.getInt(1) : 0;
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        }
+        return 0;
+    }
+
 
     private void fillPreparedStatement(Request entity, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setLong(1, entity.getClient().getId());

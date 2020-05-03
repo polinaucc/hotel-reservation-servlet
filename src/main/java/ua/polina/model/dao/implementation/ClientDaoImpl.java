@@ -82,6 +82,12 @@ public class ClientDaoImpl implements ClientDao {
         return null;
     }
 
+    //TODO: to implement
+    @Override
+    public List<Client> findAll(Integer offset, Integer limit) {
+        return null;
+    }
+
     @Override
     public void close() {
         try {

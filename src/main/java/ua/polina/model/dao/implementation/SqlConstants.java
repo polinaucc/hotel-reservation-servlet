@@ -89,6 +89,10 @@ public interface SqlConstants {
 
     String SQL_REQUEST_FIND_BY_CLIENT = "SELECT * FROM request WHERE client_id = ?";
 
+    String SQL_REQUEST_COUNT_ALL = "SELECT COUNT(*) FROM request";
+
+    String SQL_REQUEST_FIND_ALL_PAGINATION = "SELECT * FROM request ORDER BY id DESC LIMIT ? OFFSET ?";
+
     String SQL_RESERVATION_INSERT = "INSERT into reservation (request_id, room_id, sum) VALUES(?,?,?)";
 
     String SQL_RESERVATION_FIND_BY_REQUEST = "SELECT * FROM reservation WHERE request_id = ?";

@@ -56,6 +56,12 @@ public class UserRoleDaoImpl implements UserRoleDao {
         return null;
     }
 
+    //TODO: to implement
+    @Override
+    public List<UserRole> findAll(Integer offset, Integer limit) {
+        return null;
+    }
+
     @Override
     public void close() {
         try {

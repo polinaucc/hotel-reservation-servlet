@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requests}" var="request">
+    <c:forEach items="${entities}" var="request">
         <tr>
             <td>${request.client.firstName} ${request.client.middleName} ${request.client.lastName}</td>
             <td>${request.description.roomType}</td>
@@ -33,6 +33,22 @@
     </c:forEach>
     </tbody>
 </table>
+
+
+<ul>
+    <c:forEach begin="1" end="${numberOfPages}" var="i">
+        <c:choose>
+            <c:when test="${currentPage eq i}">
+                <li>${i}</li>
+            </c:when>
+            <c:otherwise>
+                <li>
+                    <a href="${command}?currentPage=${i}&recordsPerPage=${recordsPerPage}">${i}</a>
+                </li>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</ul>
 
 
 </body>

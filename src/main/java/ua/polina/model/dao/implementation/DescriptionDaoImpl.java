@@ -79,6 +79,12 @@ public class DescriptionDaoImpl implements DescriptionDao {
         return null;
     }
 
+    //TODO: to implement
+    @Override
+    public List<Description> findAll(Integer offset, Integer limit) {
+        return null;
+    }
+
     @Override
     public void close() {
         try {

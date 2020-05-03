@@ -68,6 +68,12 @@ public class ReservationDaoImpl implements ReservationDao {
         return null;
     }
 
+    //TODO: to implement
+    @Override
+    public List<Reservation> findAll(Integer offset, Integer limit) {
+        return null;
+    }
+
     @Override
     public void close(){
         try {

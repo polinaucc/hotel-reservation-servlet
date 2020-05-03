@@ -29,10 +29,18 @@ public class RequestService {
         }
     }
 
-    //TODO: add pagination
     public List<Request> getAllRequests(){
         try(RequestDao requestDao = daoFactory.createRequestDao()) {
            return requestDao.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public List<Request> getAllRequestsPagination(Integer offset, Integer limit){
+        try(RequestDao requestDao = daoFactory.createRequestDao()){
+            return requestDao.findAll(offset, limit);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,5 +72,14 @@ public class RequestService {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    public Integer numberOfEntries() {
+        try (RequestDao requestDao = daoFactory.createRequestDao()) {
+            return requestDao.countAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

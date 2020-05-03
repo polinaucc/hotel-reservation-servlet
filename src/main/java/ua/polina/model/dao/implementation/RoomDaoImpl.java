@@ -74,6 +74,12 @@ public class RoomDaoImpl implements RoomDao {
         return null;
     }
 
+    //TODO: to implement
+    @Override
+    public List<Room> findAll(Integer offset, Integer limit) {
+        return null;
+    }
+
     @Override
     public void close() {
         try {
