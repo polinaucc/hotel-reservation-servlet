@@ -95,7 +95,7 @@ public interface SqlConstants {
 
     String SQL_RESERVATION_FIND_ALL = "SELECT * FROM reservation";
 
-    String SQL_ROOM_INSERT = "INSERT into room (room)number, description_id)";
+    String SQL_ROOM_INSERT = "INSERT into room (room_number, description_id) VALUES(?,?)";
 
     String SQL_ROOM_FIND_BY_DESCRIPTION = "SELECT * FROM room WHERE description_id=?";
 

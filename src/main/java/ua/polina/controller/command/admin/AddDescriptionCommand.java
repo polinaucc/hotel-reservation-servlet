@@ -27,7 +27,6 @@ public class AddDescriptionCommand extends MultipleMethodCommand {
         descriptionDto.setCountOfPersons(Integer.parseInt(request.getParameter("persons")));
         descriptionDto.setCountOfBeds(Integer.parseInt(request.getParameter("beds")));
         descriptionDto.setCostPerNight(new BigDecimal(request.getParameter("costPerNight")));
-        System.out.println(descriptionDto);
         descriptionService.saveNewDescription(descriptionDto);
         return "/ok.jsp";
     }

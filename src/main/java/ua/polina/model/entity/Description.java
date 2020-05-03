@@ -11,13 +11,8 @@ public class Description {
 
     @Override
     public String toString() {
-        return "Description{" +
-                "id=" + id +
-                ", roomType=" + roomType +
-                ", countOfPersons=" + countOfPersons +
-                ", countOfBeds=" + countOfBeds +
-                ", costPerNight=" + costPerNight +
-                '}';
+        return roomType + " for " + countOfPersons + " persons " + "with " +
+                countOfBeds +" beds" + "\n cost per night is " + costPerNight;
     }
 
     public Long getId() {

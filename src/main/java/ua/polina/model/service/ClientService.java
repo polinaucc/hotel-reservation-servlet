@@ -23,14 +23,14 @@ public class ClientService {
     public void saveNewClient(SignUpDto signUpDto) {
         try (ClientDao clientDao = daoFactory.createClientDao()) {
             User user = saveUser(signUpDto);
-            Client client = new Client();
-            client.setFirstName(signUpDto.getFirstName());
-            client.setMiddleName(signUpDto.getMiddleName());
-            client.setLastName(signUpDto.getLastName());
-            client.setPassport(signUpDto.getPassport());
-            client.setBirthday(signUpDto.getBirthday());
-            client.setUser(user);
-            clientDao.create(client);
+//            Client client = new Client();
+//            client.setFirstName(signUpDto.getFirstName());
+//            client.setMiddleName(signUpDto.getMiddleName());
+//            client.setLastName(signUpDto.getLastName());
+//            client.setPassport(signUpDto.getPassport());
+//            client.setBirthday(signUpDto.getBirthday());
+//            client.setUser(user);
+//            clientDao.create(client);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class ClientService {
         try (UserDao userDao = daoFactory.createUserDao()) {
             User user = new User();
             HashSet<Role> roles = new HashSet<>();
-            roles.add(Role.CLIENT);
+            roles.add(Role.ADMIN);
             user.setAuthorities(roles);
             user.setUsername(signUpDto.getUsername());
             user.setEmail(signUpDto.getEmail());
