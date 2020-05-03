@@ -53,6 +53,7 @@ public class RoomDaoImpl implements RoomDao {
     @Override
     public Room findById(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_ROOM_FIND_BY_ID)) {
+            preparedStatement.setLong(1, id);
             return findRoomsByPreparedStatement(preparedStatement).get(0);
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
@@ -92,6 +93,7 @@ public class RoomDaoImpl implements RoomDao {
     @Override
     public List<Room> findByDescription(Long descriptionId) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_ROOM_FIND_BY_DESCRIPTION)) {
+            preparedStatement.setLong(1, descriptionId);
             return findRoomsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());

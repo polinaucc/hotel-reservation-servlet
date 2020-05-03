@@ -1,3 +1,4 @@
+<%@ page import="ua.polina.model.entity.Status" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
@@ -38,6 +39,13 @@
             <td>${request.checkInDate}</td>
             <td>${request.checkOutDate}</td>
             <td>${request.status}</td>
+            <td>
+                <a href="find-room?id=${request.id}">
+                    <c:if test="${request.status eq 'New_request'}">
+                        Find room
+                    </c:if>
+                </a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

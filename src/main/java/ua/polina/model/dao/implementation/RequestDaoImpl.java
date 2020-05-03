@@ -59,6 +59,7 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public Request findById(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_REQUEST_FIND_BY_ID)) {
+            preparedStatement.setLong(1, id);
             return findRequestsByPreparedStatement(preparedStatement).get(0);
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
