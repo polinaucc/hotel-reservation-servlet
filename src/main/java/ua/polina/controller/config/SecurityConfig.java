@@ -23,6 +23,8 @@ public class SecurityConfig {
 
         Set<String> clientUrlPatterns = new HashSet<>();
         clientUrlPatterns.add("add-request");
+        clientUrlPatterns.add("my-requests");
+        clientUrlPatterns.add("reservation-info");
 
         mapConfig.put(Role.ADMIN, adminUrlPatterns);
         mapConfig.put(Role.CLIENT, clientUrlPatterns);

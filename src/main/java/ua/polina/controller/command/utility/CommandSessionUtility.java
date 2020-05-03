@@ -15,4 +15,9 @@ public class CommandSessionUtility {
     public static void logoutFromSession(HttpServletRequest request){
         request.getSession().removeAttribute("principals");
     }
+
+    public static User getCurrentUser(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        return (User) session.getAttribute("principals");
+    }
 }

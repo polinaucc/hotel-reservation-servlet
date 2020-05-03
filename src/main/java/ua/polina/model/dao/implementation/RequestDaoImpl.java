@@ -109,6 +109,7 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public List<Request> findByClient(Long clientId) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_REQUEST_FIND_BY_CLIENT)) {
+            preparedStatement.setLong(1, clientId);
             return findRequestsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
