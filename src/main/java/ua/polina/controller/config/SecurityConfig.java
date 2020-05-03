@@ -13,7 +13,8 @@ public class SecurityConfig {
     static {
         init();
     }
-    private static void init(){
+
+    private static void init() {
         Set<String> adminUrlPatterns = new HashSet<>();
         adminUrlPatterns.add("add-description");
         adminUrlPatterns.add("add-room");
@@ -30,14 +31,14 @@ public class SecurityConfig {
         mapConfig.put(Role.CLIENT, clientUrlPatterns);
     }
 
-    public static  boolean isSecured(String url){
+    public static boolean isSecured(String url) {
         return mapConfig.values()
                 .stream()
                 .flatMap(Set::stream)
                 .anyMatch(pattern -> pattern.equals(url));
     }
 
-    public static boolean isAccessAllowed(String url,Set<Role> roles){
+    public static boolean isAccessAllowed(String url, Set<Role> roles) {
         return mapConfig.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue().contains(url))
