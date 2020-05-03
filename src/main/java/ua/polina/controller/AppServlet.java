@@ -3,6 +3,7 @@ package ua.polina.controller;
 import ua.polina.controller.command.Command;
 import ua.polina.controller.command.admin.AddDescriptionCommand;
 import ua.polina.controller.command.admin.AddRoomCommand;
+import ua.polina.controller.command.admin.GetRequestsCommand;
 import ua.polina.controller.command.auth.LoginCommand;
 import ua.polina.controller.command.auth.LogoutCommand;
 import ua.polina.controller.command.auth.RegisterCommand;
@@ -40,6 +41,7 @@ public class AppServlet extends HttpServlet {
         commands.put("logout", new LogoutCommand());
         commands.put("add-request", new AddRequestCommand(requestService, descriptionService, clientService));
         commands.put("add-room", new AddRoomCommand(descriptionService, roomService));
+        commands.put("get-requests", new GetRequestsCommand(requestService));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
