@@ -79,13 +79,13 @@ public interface SqlConstants {
 
     String SQL_REQUEST_FIND_BY_ID = "SELECT * FROM request WHERE id = ?";
 
-    String SQL_REQUEST_UPDATE = "UPDATE request SET (" +
-            "client_id=?, " +
-            "description_id=?, " +
-            "in_date=?, " +
-            "out_date=?, " +
-            "status=?) " +
-            "WHERE id=?";
+    String SQL_REQUEST_UPDATE = "UPDATE request SET " +
+            "client_id = ?, " +
+            "description_id = ?, " +
+            "in_date = ?, " +
+            "out_date = ?, " +
+            "status = ?" +
+            "WHERE id = ?";
 
     String SQL_REQUEST_FIND_BY_CLIENT = "SELECT * FROM request WHERE client_id = ?";
 
