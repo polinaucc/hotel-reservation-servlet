@@ -91,7 +91,7 @@ public interface SqlConstants {
 
     String SQL_REQUEST_COUNT_ALL = "SELECT COUNT(*) FROM request";
 
-    String SQL_REQUEST_FIND_ALL_PAGINATION = "SELECT * FROM request ORDER BY id DESC LIMIT ? OFFSET ?";
+    String SQL_REQUEST_FIND_ALL_PAGINATION = "SELECT * FROM request ORDER BY id ASC LIMIT ? OFFSET ?";
 
     String SQL_RESERVATION_INSERT = "INSERT into reservation (request_id, room_id, sum) VALUES(?,?,?)";
 

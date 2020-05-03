@@ -2,6 +2,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <html>
+<style>
+    li{
+        float: left;
+        padding: 5px;
+    }
+    li a{
+        display: block;
+    }
+</style>
 <head>
     <title>Requests</title>
 </head>
@@ -35,7 +44,7 @@
 </table>
 
 
-<ul>
+<ul style="list-style-type: none">
     <c:forEach begin="1" end="${numberOfPages}" var="i">
         <c:choose>
             <c:when test="${currentPage eq i}">
