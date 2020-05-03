@@ -46,6 +46,13 @@
                     </c:if>
                 </a>
             </td>
+            <td>
+                <a href="reservation-info?id=${request.id}">
+                    <c:if test="${request.status eq 'Accepted'}">
+                        View reservation
+                    </c:if>
+                </a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

@@ -1,11 +1,6 @@
-<%@ page import="ua.polina.model.service.DescriptionService" %>
-<%@ page import="ua.polina.model.entity.Description" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Room</title>

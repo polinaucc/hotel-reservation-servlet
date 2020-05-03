@@ -41,6 +41,7 @@ public class AppServlet extends HttpServlet {
         commands.put("get-requests", new GetRequestsCommand(requestService, paginationUtility));
         commands.put("find-room", new FindRoomCommand(requestService, roomService, reservationService));
         commands.put("add-reservation", new AddReservationCommand(roomService, reservationService, requestService));
+        commands.put("reservation-info", new GetReservationInfoCommand(requestService, reservationService));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

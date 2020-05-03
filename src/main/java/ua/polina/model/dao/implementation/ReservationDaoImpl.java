@@ -116,6 +116,7 @@ public class ReservationDaoImpl implements ReservationDao {
     @Override
     public Optional<Reservation> findByRequest(Long requestId) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_RESERVATION_FIND_BY_REQUEST)) {
+            preparedStatement.setLong(1, requestId);
             return Optional.of(findReservationsByPreparedStatement(preparedStatement).get(0));
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
