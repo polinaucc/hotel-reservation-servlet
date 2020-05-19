@@ -32,16 +32,16 @@ public class FindRoomCommand implements Command {
         try {
             HttpSession session = servletRequest.getSession();
             long requestId = Long.parseLong(servletRequest.getParameter("id"));
-            System.out.println("Request id: " + requestId);
             session.setAttribute("request_id", requestId);
             Request request = requestService.getRequestById(requestId)
-                    .orElseThrow(() -> new IllegalArgumentException("No such request"));
+                    .orElseThrow(() -> new IllegalArgumentException("no.request"));
             List<Room> rooms = roomService.getRoomsByDescription(request.getDescription());
 
             List<Room> wrongRooms = new ArrayList<>();
 
             List<Reservation> reservations = reservationService.getAllReservations();
 
+            //TODO:for in for
             for (Room room : rooms) {
                 for (Reservation res : reservations) {
                     if (res.getRoom().equals(room) &&

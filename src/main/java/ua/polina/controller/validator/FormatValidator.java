@@ -1,6 +1,5 @@
 package ua.polina.controller.validator;
 
-import ua.polina.controller.validator.Validator;
 import ua.polina.model.exception.FormatException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,6 @@ public class FormatValidator implements Validator {
     @Override
     public void validate(HttpServletRequest request, String field) throws Exception {
         if(!Pattern.matches(regularExpression, field))
-            throw new FormatException("Field doesn`t match format", regularExpression);
+            throw new FormatException("field.not.match.format");
     }
 }

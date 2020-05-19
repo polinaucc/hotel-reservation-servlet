@@ -1,21 +1,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
-    <title>My Requests</title>
+    <title><fmt:message key="all.requests"/></title>
 </head>
 <body>
+<jsp:include page="language-fragment.jsp"/>
 <h2>My Requests</h2>
 <table border="1">
     <thead>
     <tr>
-        <th>Room type</th>
-        <th>Count of persons</th>
-        <th>Count of beds</th>
-        <th>Check in date</th>
-        <th>Check out date</th>
-        <th>Status</th>
+        <th><fmt:message key="room.type"/></th>
+        <th><fmt:message key="count.of.persons"/></th>
+        <th><fmt:message key="count.of.beds"/></th>
+        <th><fmt:message key="check.in.date"/></th>
+        <th><fmt:message key="check.out.date"/></th>
+        <th><fmt:message key="status"/></th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +33,7 @@
             <td>${req.status}</td>
             <td>
                 <c:if test="${req.status eq 'Accepted'}">
-                    <a href="reservation-info?id=${req.id}">View reservation</a>
+                    <a href="reservation-info?id=${req.id}"><fmt:message key="check.reservation"/></a>
                 </c:if>
             </td>
         </tr>

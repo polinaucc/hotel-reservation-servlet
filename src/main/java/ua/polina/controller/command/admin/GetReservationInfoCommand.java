@@ -22,9 +22,9 @@ public class GetReservationInfoCommand implements Command {
         try {
             Long requestId = Long.parseLong(servletRequest.getParameter("id"));
             Request request = requestService.getRequestById(requestId)
-                    .orElseThrow(() -> new IllegalArgumentException("No request with such id"));
+                    .orElseThrow(() -> new IllegalArgumentException("no.request.with.id"));
             Reservation reservation = reservationService.getReservationByRequest(request)
-                    .orElseThrow(() -> new IllegalArgumentException("No reservation by such request"));
+                    .orElseThrow(() -> new IllegalArgumentException("no.reservation.by.request"));
             servletRequest.setAttribute("reservation", reservation);
             return "/reservation-info.jsp";
         }

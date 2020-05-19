@@ -9,7 +9,7 @@ public class NotBlankValidator implements Validator {
     @Override
     public void validate(HttpServletRequest request, String field) throws BlankFieldException {
         if(Objects.isNull(field)||field.equals("")){
-            String message = "Field is blank";
+            String message = "blank.field";
             throw new BlankFieldException(message);
         }
     }

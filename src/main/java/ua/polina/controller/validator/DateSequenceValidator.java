@@ -9,6 +9,6 @@ import java.util.Locale;
 
 public class DateSequenceValidator {
     public void validate(LocalDate startDate, LocalDate endDate) throws DateException {
-        if(endDate.isBefore(startDate)) throw new DateException("End date must be after start date");
+        if(endDate.isBefore(startDate)) throw new DateException("wrong.sequence.date");
     }
 }

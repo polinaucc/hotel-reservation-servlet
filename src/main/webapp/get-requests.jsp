@@ -1,7 +1,10 @@
 <%@ page import="ua.polina.model.entity.Status" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <style>
     li{
@@ -13,20 +16,21 @@
     }
 </style>
 <head>
-    <title>Requests</title>
+    <title><fmt:message key="all.requests"/></title>
 </head>
 <body>
+<jsp:include page="language-fragment.jsp"/>
 <h2>Requests</h2>
 <table border="1">
     <thead>
     <tr>
-        <th>Client</th>
-        <th>Room type</th>
-        <th>Count of persons</th>
-        <th>Count of beds</th>
-        <th>Check in date</th>
-        <th>Check out date</th>
-        <th>Status</th>
+        <th><fmt:message key="client"/></th>
+        <th><fmt:message key="room.type"/></th>
+        <th><fmt:message key="count.of.persons"/></th>
+        <th><fmt:message key="count.of.persons"/></th>
+        <th><fmt:message key="check.in.date"/></th>
+        <th><fmt:message key="check.out.date"/></th>
+        <th><fmt:message key="status"/></th>
     </tr>
     </thead>
     <tbody>
@@ -42,14 +46,14 @@
             <td>
                 <a href="find-room?id=${request.id}">
                     <c:if test="${request.status eq 'New_request'}">
-                        Find room
+                        <fmt:message key="find.room"/>
                     </c:if>
                 </a>
             </td>
             <td>
                 <a href="reservation-info?id=${request.id}">
                     <c:if test="${request.status eq 'Accepted'}">
-                        View reservation
+                        <fmt:message key="check.reservation"/>
                     </c:if>
                 </a>
             </td>

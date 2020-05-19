@@ -25,7 +25,7 @@ public class GetMyRequestsCommand implements Command {
         try {
             User currentUser = CommandSessionUtility.getCurrentUser(request);
             Client client = clientService.getClientByUser(currentUser)
-                    .orElseThrow(() -> new IllegalArgumentException("No such client"));
+                    .orElseThrow(() -> new IllegalArgumentException("no.client"));
             List<Request> requests = requestService.getRequestsByClient(client);
             request.setAttribute("requests", requests);
             return "/my-requests.jsp";

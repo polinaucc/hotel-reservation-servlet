@@ -15,6 +15,10 @@ public class SessionLocaleFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String language = request.getParameter("lang");
+        if(language!=null){
+            request.getSession().setAttribute("lang", language);
+        }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

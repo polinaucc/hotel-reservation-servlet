@@ -15,16 +15,21 @@ public class DescriptionService {
 
     public void saveNewDescription(DescriptionDto descriptionDto){
         try(DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
-            Description description = new Description();
-            description.setRoomType(descriptionDto.getRoomType());
-            description.setCountOfPersons(descriptionDto.getCountOfPersons());
-            description.setCountOfBeds(descriptionDto.getCountOfBeds());
-            description.setCostPerNight(descriptionDto.getCostPerNight());
+            Description description = formDescription(descriptionDto);
 
             descriptionDao.create(description);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Description formDescription(DescriptionDto descriptionDto) {
+        Description description = new Description();
+        description.setRoomType(descriptionDto.getRoomType());
+        description.setCountOfPersons(descriptionDto.getCountOfPersons());
+        description.setCountOfBeds(descriptionDto.getCountOfBeds());
+        description.setCostPerNight(descriptionDto.getCostPerNight());
+        return description;
     }
 
     public Optional<Description> getDescriptionByParameters(RequestDto requestDto){

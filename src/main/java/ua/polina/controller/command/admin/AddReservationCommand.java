@@ -30,7 +30,7 @@ public class AddReservationCommand implements Command {
                     .orElseThrow(() -> new IllegalArgumentException("No such room"));
             Long requestId = (Long) (session.getAttribute("request_id"));
             Request request = requestService.getRequestById(requestId)
-                    .orElseThrow(() -> new IllegalArgumentException("No request with such id"));
+                    .orElseThrow(() -> new IllegalArgumentException("no.request.with.id"));
             reservationService.saveReservation(request, room);
             return "redirect:/get-requests";
         }

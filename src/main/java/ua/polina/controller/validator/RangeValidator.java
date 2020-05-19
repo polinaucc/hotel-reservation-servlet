@@ -16,8 +16,7 @@ public class RangeValidator implements Validator {
     @Override
     public void validate(HttpServletRequest request, String field) throws Exception {
         if(field.length()<minLength || field.length()>maxLength){
-            String message = "Out of range. Field length should be between  " + minLength + " and " + maxLength;
-            throw new RangeException(message);
+            throw new RangeException("out.of.range");
         }
     }
 }

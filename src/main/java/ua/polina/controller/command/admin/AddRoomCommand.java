@@ -32,7 +32,7 @@ public class AddRoomCommand extends MultipleMethodCommand {
             roomDto.setDescriptionId(Long.parseLong(request.getParameter("description_id")));
             roomDto.setRoomNumber(request.getParameter("room_number"));
             Description description = descriptionService.getDescriptionById(roomDto.getDescriptionId())
-                    .orElseThrow(() -> new IllegalArgumentException("No such description"));
+                    .orElseThrow(() -> new IllegalArgumentException("no.description"));
             roomService.saveRoom(roomDto, description);
             return "/ok.jsp";
         }
