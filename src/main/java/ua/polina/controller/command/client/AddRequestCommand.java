@@ -36,23 +36,30 @@ public class AddRequestCommand extends MultipleMethodCommand {
 
     @Override
     protected String executePost(HttpServletRequest request) {
-        RequestDto requestDto = new RequestDto();
-        User user = (User) request.getSession().getAttribute("principals");
-        Client client = clientService.getClientByUser(user)
-                .orElseThrow(() -> new IllegalArgumentException("No such client"));
-        requestDto.setRoomType(RoomType.valueOf(request.getParameter("roomType")));
-        requestDto.setCountOfPerson(Integer.parseInt(request.getParameter("persons")));
-        requestDto.setCountOfBeds(Integer.parseInt(request.getParameter("beds")));
-        requestDto.setCheckInDate(LocalDate.parse(request.getParameter("check_in_date")));
-        requestDto.setCheckOutDate(LocalDate.parse(request.getParameter("check_out_date")));
-        Description description = descriptionService.getDescriptionByParameters(requestDto)
-                .orElseThrow(() -> new IllegalArgumentException("No such Description"));
-        String error = validate(request, requestDto);
-        if (error.equals("")) {
-            requestService.saveNewRequest(requestDto, client, description);
-            return "/index.jsp";
-        } else {
-            request.setAttribute("error", error);
+        try {
+            RequestDto requestDto = new RequestDto();
+            User user = (User) request.getSession().getAttribute("principals");
+            Client client = clientService.getClientByUser(user)
+                    .orElseThrow(() -> new IllegalArgumentException("No such client"));
+            requestDto.setRoomType(RoomType.valueOf(request.getParameter("roomType")));
+            requestDto.setCountOfPerson(Integer.parseInt(request.getParameter("persons")));
+            requestDto.setCountOfBeds(Integer.parseInt(request.getParameter("beds")));
+            requestDto.setCheckInDate(LocalDate.parse(request.getParameter("check_in_date")));
+            requestDto.setCheckOutDate(LocalDate.parse(request.getParameter("check_out_date")));
+            Description description = descriptionService.getDescriptionByParameters(requestDto)
+                    .orElseThrow(() -> new IllegalArgumentException("Unfortunately, there is no such Description"));
+            String error = validate(request, requestDto);
+            if (error.equals("")) {
+                requestService.saveNewRequest(requestDto, client, description);
+                return "/index.jsp";
+            } else {
+                request.setAttribute("error", error);
+                return "/add-request.jsp";
+            }
+        }
+        catch (IllegalArgumentException ie){
+            String err = ie.getMessage();
+            request.setAttribute("argumentError", err);
             return "/add-request.jsp";
         }
     }
@@ -61,7 +68,7 @@ public class AddRequestCommand extends MultipleMethodCommand {
         DateSequenceValidator sequenceValidator = new DateSequenceValidator();
         DateValidator dateValidator = new DateValidator(Option.IS_FUTURE);
         try {
-            sequenceValidator.validate(servletRequest, requestDto.getCheckInDate().toString(), requestDto.getCheckOutDate().toString());
+            sequenceValidator.validate(requestDto.getCheckInDate(), requestDto.getCheckOutDate());
             dateValidator.validate(servletRequest, requestDto.getCheckInDate().toString());
             dateValidator.validate(servletRequest, requestDto.getCheckOutDate().toString());
             return "";

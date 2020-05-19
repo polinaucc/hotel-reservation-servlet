@@ -15,14 +15,14 @@ public class DateValidator implements Validator {
         this.option = option;
     }
 
-    private void isPastDate(HttpServletRequest request, String field) throws DateException {
+    private void isPastDate(String field) throws DateException {
         LocalDate todayDate = LocalDate.now();
         LocalDate date = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK));
         if (date.isAfter(todayDate)) throw new DateException("Date should be in the past");
         if (ChronoUnit.YEARS.between(date, todayDate) < 18) throw new DateException("You should be a full-aged person");
     }
 
-    private void isFutureDate(HttpServletRequest request, String field) throws DateException {
+    private void isFutureDate(String field) throws DateException {
         LocalDate todayDate = LocalDate.now();
         LocalDate date = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK));
         if(date.isBefore(todayDate)) throw new DateException("Date should be in the future");
@@ -30,7 +30,7 @@ public class DateValidator implements Validator {
 
     @Override
     public void validate(HttpServletRequest request, String field) throws DateException {
-        if(option==Option.IS_PAST) isPastDate(request, field);
-        if(option==Option.IS_FUTURE) isFutureDate(request, field);
+        if(option==Option.IS_PAST) isPastDate(field);
+        if(option==Option.IS_FUTURE) isFutureDate(field);
     }
 }

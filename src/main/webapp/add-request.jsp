@@ -11,6 +11,7 @@
     <section id="content">
         <form action="/add-request" method="post">
             <h1>Request form</h1>
+            ${argumentError}
             <div class="col-lg-6">
                 <label for="room">Select room type</label>
                 <select class="form-control" id="room" name="roomType">
