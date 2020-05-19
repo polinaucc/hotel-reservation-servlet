@@ -2,14 +2,15 @@ package ua.polina.controller.command.auth;
 
 import ua.polina.controller.command.MultipleMethodCommand;
 import ua.polina.controller.command.utility.CommandBCryptUtility;
-import ua.polina.model.dto.DescriptionDto;
+import ua.polina.controller.validator.CompositeValidator;
 import ua.polina.model.dto.SignUpDto;
-import ua.polina.model.entity.RoomType;
 import ua.polina.model.service.ClientService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RegisterCommand extends MultipleMethodCommand {
     private final ClientService clientService;
@@ -24,7 +25,7 @@ public class RegisterCommand extends MultipleMethodCommand {
     }
 
     @Override
-    protected String executePost(HttpServletRequest request) {
+    protected String executePost(HttpServletRequest request) throws Exception {
         SignUpDto signUpDto = new SignUpDto();
         signUpDto.setEmail(request.getParameter("email"));
         signUpDto.setUsername(request.getParameter("username"));
@@ -34,7 +35,51 @@ public class RegisterCommand extends MultipleMethodCommand {
         signUpDto.setLastName(request.getParameter("last_name"));
         signUpDto.setPassport(request.getParameter("passport"));
         signUpDto.setBirthday(LocalDate.parse(request.getParameter("birthday")));
-        clientService.saveNewClient(signUpDto);
-        return "/ok.jsp";
+        Map<String, List<String>> validationMessages = validate(request, signUpDto);
+        request.setAttribute("errors", validationMessages);
+        if (validationMessages.isEmpty()) {
+            clientService.saveNewClient(signUpDto);
+            return "/ok.jsp";
+        } else return "/register-client.jsp";
+    }
+
+    private Map<String, List<String>> validate(HttpServletRequest request, SignUpDto signUpDto) throws Exception {
+        Map<String, List<String>> validationMessages = new HashMap<>();
+
+        CompositeValidator.EMAIL.validate(request, signUpDto.getEmail()).ifPresent(messages -> {
+            validationMessages.put("email", messages);
+        });
+
+        CompositeValidator.USERNAME.validate(request, signUpDto.getUsername()).ifPresent(messages -> {
+            validationMessages.put("username", messages);
+        });
+
+        CompositeValidator.PASSWORD.validate(request, signUpDto.getPassword()).ifPresent(messages -> {
+            validationMessages.put("password", messages);
+        });
+
+        CompositeValidator.FIRST_NAME.validate(request, signUpDto.getFirstName()).ifPresent(messages -> {
+            validationMessages.put("first_name", messages);
+        });
+
+        CompositeValidator.MIDDLE_NAME.validate(request, signUpDto.getMiddleName()).ifPresent(messages -> {
+            validationMessages.put("middle_name", messages);
+        });
+
+        CompositeValidator.LAST_NAME.validate(request, signUpDto.getLastName()).ifPresent(messages -> {
+            validationMessages.put("last_name", messages);
+        });
+
+        CompositeValidator.PASSPORT.validate(request, signUpDto.getPassport()).ifPresent(messages -> {
+            validationMessages.put("passport", messages);
+        });
+
+        CompositeValidator.BIRTHDAY.validate(request, signUpDto.getBirthday().toString()).ifPresent(messages -> {
+            validationMessages.put("birthday", messages);
+        });
+
+        System.out.println(validationMessages.values());
+
+        return validationMessages;
     }
 }

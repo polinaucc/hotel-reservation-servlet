@@ -1,5 +1,6 @@
 package ua.polina.controller;
 
+import lombok.SneakyThrows;
 import ua.polina.controller.command.Command;
 import ua.polina.controller.command.admin.*;
 import ua.polina.controller.command.auth.LoginCommand;
@@ -46,15 +47,17 @@ public class AppServlet extends HttpServlet {
         commands.put("my-requests", new GetMyRequestsCommand(requestService, clientService));
     }
 
+    @SneakyThrows
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         processRequest(request, response);
     }
 
+    @SneakyThrows
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         processRequest(request, response);
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String path = request.getRequestURI();
         path = path.replace("/", "");
         Command command = commands.getOrDefault(path, (r) -> "/index.jsp");
