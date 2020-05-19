@@ -1,11 +1,16 @@
 package ua.polina.controller.command.client;
 
 import ua.polina.controller.command.MultipleMethodCommand;
+import ua.polina.controller.validator.DateSequenceValidator;
+import ua.polina.controller.validator.DateValidator;
+import ua.polina.controller.validator.Option;
+import ua.polina.controller.validator.Validator;
 import ua.polina.model.dto.RequestDto;
 import ua.polina.model.entity.Client;
 import ua.polina.model.entity.Description;
 import ua.polina.model.entity.RoomType;
 import ua.polina.model.entity.User;
+import ua.polina.model.exception.DateException;
 import ua.polina.model.service.ClientService;
 import ua.polina.model.service.DescriptionService;
 import ua.polina.model.service.RequestService;
@@ -34,16 +39,34 @@ public class AddRequestCommand extends MultipleMethodCommand {
         RequestDto requestDto = new RequestDto();
         User user = (User) request.getSession().getAttribute("principals");
         Client client = clientService.getClientByUser(user)
-                .orElseThrow(()->new IllegalArgumentException("No such client"));
+                .orElseThrow(() -> new IllegalArgumentException("No such client"));
         requestDto.setRoomType(RoomType.valueOf(request.getParameter("roomType")));
         requestDto.setCountOfPerson(Integer.parseInt(request.getParameter("persons")));
         requestDto.setCountOfBeds(Integer.parseInt(request.getParameter("beds")));
         requestDto.setCheckInDate(LocalDate.parse(request.getParameter("check_in_date")));
         requestDto.setCheckOutDate(LocalDate.parse(request.getParameter("check_out_date")));
-        System.out.println(requestDto);
         Description description = descriptionService.getDescriptionByParameters(requestDto)
-                .orElseThrow(()->new IllegalArgumentException("No such Description"));
-        requestService.saveNewRequest(requestDto, client, description);
-        return "/register-client.jsp";
+                .orElseThrow(() -> new IllegalArgumentException("No such Description"));
+        String error = validate(request, requestDto);
+        if (error.equals("")) {
+            requestService.saveNewRequest(requestDto, client, description);
+            return "/index.jsp";
+        } else {
+            request.setAttribute("error", error);
+            return "/add-request.jsp";
+        }
+    }
+
+    public String validate(HttpServletRequest servletRequest, RequestDto requestDto) {
+        DateSequenceValidator sequenceValidator = new DateSequenceValidator();
+        DateValidator dateValidator = new DateValidator(Option.IS_FUTURE);
+        try {
+            sequenceValidator.validate(servletRequest, requestDto.getCheckInDate().toString(), requestDto.getCheckOutDate().toString());
+            dateValidator.validate(servletRequest, requestDto.getCheckInDate().toString());
+            dateValidator.validate(servletRequest, requestDto.getCheckOutDate().toString());
+            return "";
+        } catch (DateException de) {
+            return de.getMessage();
+        }
     }
 }

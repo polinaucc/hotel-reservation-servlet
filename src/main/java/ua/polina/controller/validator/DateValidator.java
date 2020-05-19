@@ -29,7 +29,7 @@ public class DateValidator implements Validator {
     }
 
     @Override
-    public void validate(HttpServletRequest request, String field) throws Exception {
+    public void validate(HttpServletRequest request, String field) throws DateException {
         if(option==Option.IS_PAST) isPastDate(request, field);
         if(option==Option.IS_FUTURE) isFutureDate(request, field);
     }
