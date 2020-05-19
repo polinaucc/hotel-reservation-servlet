@@ -19,12 +19,18 @@ public class GetReservationInfoCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest servletRequest) {
-        Long requestId = Long.parseLong(servletRequest.getParameter("id"));
-        Request request = requestService.getRequestById(requestId)
-                .orElseThrow(()->new IllegalArgumentException("No request with such id"));
-        Reservation reservation = reservationService.getReservationByRequest(request)
-                .orElseThrow(()->new IllegalArgumentException("No reservation by such request"));
-        servletRequest.setAttribute("reservation", reservation);
-        return "/reservation-info.jsp";
+        try {
+            Long requestId = Long.parseLong(servletRequest.getParameter("id"));
+            Request request = requestService.getRequestById(requestId)
+                    .orElseThrow(() -> new IllegalArgumentException("No request with such id"));
+            Reservation reservation = reservationService.getReservationByRequest(request)
+                    .orElseThrow(() -> new IllegalArgumentException("No reservation by such request"));
+            servletRequest.setAttribute("reservation", reservation);
+            return "/reservation-info.jsp";
+        }
+        catch (IllegalArgumentException ie){
+            servletRequest.setAttribute("smthError", ie.getMessage());
+            return "/error.jsp";
+        }
     }
 }

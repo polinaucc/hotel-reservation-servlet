@@ -22,11 +22,17 @@ public class GetMyRequestsCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        User currentUser = CommandSessionUtility.getCurrentUser(request);
-        Client client = clientService.getClientByUser(currentUser)
-                .orElseThrow(()->new IllegalArgumentException("No such client"));
-        List<Request> requests = requestService.getRequestsByClient(client);
-        request.setAttribute("requests", requests);
-        return "/my-requests.jsp";
+        try {
+            User currentUser = CommandSessionUtility.getCurrentUser(request);
+            Client client = clientService.getClientByUser(currentUser)
+                    .orElseThrow(() -> new IllegalArgumentException("No such client"));
+            List<Request> requests = requestService.getRequestsByClient(client);
+            request.setAttribute("requests", requests);
+            return "/my-requests.jsp";
+        }
+        catch (IllegalArgumentException ie){
+            request.setAttribute("smthError", ie.getMessage());
+            return "/error.jsp";
+        }
     }
 }

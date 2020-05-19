@@ -23,14 +23,20 @@ public class AddReservationCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest servletRequest) {
-        HttpSession session = servletRequest.getSession();
-        Long roomId = Long.parseLong(servletRequest.getParameter("room_id"));
-        Room room = roomService.getRoomById(roomId)
-                .orElseThrow(()->new IllegalArgumentException("No such room"));
-        Long requestId = (Long)(session.getAttribute("request_id"));
-        Request request = requestService.getRequestById(requestId)
-                .orElseThrow(()->new IllegalArgumentException("No request with such id"));
-        reservationService.saveReservation(request, room);
-        return "redirect:/get-requests";
+        try {
+            HttpSession session = servletRequest.getSession();
+            Long roomId = Long.parseLong(servletRequest.getParameter("room_id"));
+            Room room = roomService.getRoomById(roomId)
+                    .orElseThrow(() -> new IllegalArgumentException("No such room"));
+            Long requestId = (Long) (session.getAttribute("request_id"));
+            Request request = requestService.getRequestById(requestId)
+                    .orElseThrow(() -> new IllegalArgumentException("No request with such id"));
+            reservationService.saveReservation(request, room);
+            return "redirect:/get-requests";
+        }
+        catch (IllegalArgumentException ie){
+            servletRequest.setAttribute("smthError", ie.getMessage());
+            return "/error.jsp";
+        }
     }
 }

@@ -27,12 +27,18 @@ public class AddRoomCommand extends MultipleMethodCommand {
 
     @Override
     protected String executePost(HttpServletRequest request) {
-        RoomDto roomDto = new RoomDto();
-        roomDto.setDescriptionId(Long.parseLong(request.getParameter("description_id")));
-        roomDto.setRoomNumber(request.getParameter("room_number"));
-        Description description = descriptionService.getDescriptionById(roomDto.getDescriptionId())
-                .orElseThrow(()->new IllegalArgumentException("No such description"));
-        roomService.saveRoom(roomDto, description);
-        return "/ok.jsp";
+        try {
+            RoomDto roomDto = new RoomDto();
+            roomDto.setDescriptionId(Long.parseLong(request.getParameter("description_id")));
+            roomDto.setRoomNumber(request.getParameter("room_number"));
+            Description description = descriptionService.getDescriptionById(roomDto.getDescriptionId())
+                    .orElseThrow(() -> new IllegalArgumentException("No such description"));
+            roomService.saveRoom(roomDto, description);
+            return "/ok.jsp";
+        }
+        catch (IllegalArgumentException ie){
+            request.setAttribute("smthError", ie.getMessage());
+            return "/error.jsp";
+        }
     }
 }
