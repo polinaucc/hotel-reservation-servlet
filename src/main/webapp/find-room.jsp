@@ -7,14 +7,16 @@
 <html>
 <head>
     <title><fmt:message key="find.room"/></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
 <jsp:include page="language-fragment.jsp"/>
 <div class="container">
     <section id="content">
         <form action="/add-reservation" method="post">
-            <h1>Choose room</h1>
-            <div class="col-lg-6">
+            <h3 class="h3 mb-3 font-weight-normal">Choose room</h3>
+            <div class="form-group">
                 <label for="room"><fmt:message key="select.free.room"/></label>
                 <select class="form-control" id="room" name="room_id">
                     <c:forEach var="room" items="${rooms}">

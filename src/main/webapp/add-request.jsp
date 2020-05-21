@@ -8,14 +8,22 @@
 <html>
 <head>
     <title><fmt:message key="request.form"/></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<body>
+<body class="text-center" data-gr-c-s-loaded="true">
+<style>
+    <%@include file="css/app_styles.css"%>
+</style>
 <div class="container">
     <section id="content">
         <form action="/add-request" method="post">
-            <h1><fmt:message key="request.form"/></h1>
-            <fmt:message key="${argumentError}"/>
-            <div class="col-lg-6">
+            <h3 class="h3 mb-3 font-weight-normal"><fmt:message key="request.form"/></h3>
+            <jsp:include page="language-fragment.jsp"/>
+            <c:if test="${not empty argumentError}">
+                <fmt:message key="${argumentError}"/>
+            </c:if>
+            <div class="form-group">
                 <label for="room"><fmt:message key="select.appartmant.class"/></label>
                 <select class="form-control" id="room" name="roomType">
                     <option value="<%=RoomType.BUSINESS%>"><%=RoomType.BUSINESS.toString()%>
@@ -28,7 +36,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col-lg-6">
+            <div class="form-group">
                 <label for="countOfPersons"><fmt:message key="select.count.of.persons"/></label>
                 <select class="form-control" id="countOfPersons" name="persons">
                     <option value="1">1</option>
@@ -36,7 +44,7 @@
                     <option value="3">3</option>
                 </select>
             </div>
-            <div class="col-lg-6">
+            <div class="form-group">
                 <label for="countOfBeds"><fmt:message key="select.count.of.beds"/></label>
                 <select class="form-control" id="countOfBeds" name="beds">
                     <option value="1">1</option>
@@ -46,29 +54,39 @@
             </div>
             <c:choose>
                 <c:when test="${not empty error}">
-                    ${error}
-                    <div>
-                        <input type="date" placeholder="<fmt:message key="check.in.date"/>" required="" id="checkInDate" name="check_in_date"
+                    <div class="error">
+                        <fmt:message key="${error}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkInDate"><fmt:message key="check.in.date"/></label>
+                        <input class="form-control" type="date" placeholder="<fmt:message key="check.in.date"/>"
+                               required="" id="checkInDate" name="check_in_date"
                                pattern="dd-MM-yyyy" value="<%=request.getParameter("check_in_date")%>"/>
                     </div>
-                    <div>
-                        <input type="date" placeholder="<fmt:message key="check.out.date"/>" required="" id="checkOutDate"
+                    <div class="form-group">
+                        <label for="checkOutDate"><fmt:message key="check.out.date"/></label>
+                        <input class="form-control" type="date" placeholder="<fmt:message key="check.out.date"/>"
+                               required="" id="checkOutDate"
                                name="check_out_date" pattern="dd-MM-yyyy"
                                value="<%=request.getParameter("check_out_date")%>"/>
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div>
-                        <input type="date" placeholder="<fmt:message key="check.in.date"/>" required="" id="checkInDate2"
+                    <div class="form-group">
+                        <label for="checkInDate2"><fmt:message key="check.in.date"/></label>
+                        <input class="form-control" type="date" placeholder="<fmt:message key="check.in.date"/>"
+                               required="" id="checkInDate2"
                                name="check_in_date" pattern="dd-MM-yyyy"/>
                     </div>
-                    <div>
-                        <input type="date" placeholder="<fmt:message key="check.out.date"/>" required="" id="checkOutDate2"
-                               name="check_out_date" pattern="dd-MM-yyyy"/>
+                    <div class="form-group">
+                        <label for="checkOutDate2"><fmt:message key="check.out.date"/></label> <input
+                            class="form-control" type="date" placeholder="<fmt:message key="check.out.date"/>"
+                            required="" id="checkOutDate2"
+                            name="check_out_date" pattern="dd-MM-yyyy"/>
                     </div>
                 </c:otherwise>
             </c:choose>
-            <input type="submit" value="<fmt:message key="apply"/>"/>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="apply"/></button>
         </form>
     </section>
 </div>

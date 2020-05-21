@@ -10,86 +10,122 @@
 <head>
     <meta charset="UTF-8">
     <title><fmt:message key="register"/></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/app_styles.css">
 </head>
-<body>
-<jsp:include page="language-fragment.jsp"/>
+<style>
+    .form-signin{
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+    *, ::after, ::before {
+        box-sizing: border-box;
+    }
+
+    body{
+        align-items: center;
+    }
+
+    .container{
+        margin-top: 110px;
+    }
+</style>
+<body class="text-center" data-gr-c-s-loaded="true">
+<jsp:include page="index.jsp"/>
 <div class="container">
-    <section id="content">
-        <form name="registration-form" action="/register" method="post">
-            <h1><fmt:message key="registration.form"/></h1>
-            <c:choose>
-                <c:when test="${not empty errors}">
-                    <fmt:message key="${errors['email'][0]}"/>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.email"/>" required title="Email error" id="email2" name="email"
-                               value="<%=request.getParameter("email")%>"/>
-                    </div>
-                    <fmt:message key="${errors['username'][0]}"/>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.username"/>" required="" id="username" name="username"
-                               value="<%=request.getParameter("username")%>"/>
-                    </div>
-                    <fmt:message key="${errors['password'][0]}"/>
-                    <div>
-                        <input type="password" placeholder="<fmt:message key="placeholder.password"/>" required="" id="password" name="password"/>
-                    </div>
-                    <fmt:message key="${errors['first_name'][0]}"/>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.first.name"/>" required="" id="firstname" name="first_name"
-                               value="<%=request.getParameter("first_name")%>"/>
-                    </div>
-                    <fmt:message key="${errors['middle_name'][0]}"/>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required="" id="middlename" name="middle_name"
-                               value="<%=request.getParameter("middle_name")%>"/>
-                    </div>
-                    <fmt:message key="${errors['last_name'][0]}"/>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.last.name"/>" required="" id="lastname" name="last_name"
-                               value="<%=request.getParameter("last_name")%>"/>
-                    </div>
-                    <fmt:message key="${errors['passport'][0]}"/>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.passport"/>" required="" id="passport" name="passport"
-                               pattern="^[А-Я]{2}[0-9]{6}$" value="<%=request.getParameter("passport")%>"/>
-                    </div>
-                    <fmt:message key="${errors['birthday'][0]}"/>
-                    <div>
-                        <input type="date" placeholder="<fmt:message key="placeholder.birthday"/>" required="" id="birthday" name="birthday"
-                               value="<%=request.getParameter("birthday")%>"/>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.email"/>" required title="Email error" id="email" name="email"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.username"/>" required="" id="username2" name="username"/>
-                    </div>
-                    <div>
-                        <input type="password" placeholder="<fmt:message key="placeholder.password"/>" required="" id="password2" name="password"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.first.name"/>" required="" id="firstname2" name="first_name"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required="" id="middlename2" name="middle_name"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required="" id="lastname2" name="last_name"/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="<fmt:message key="placeholder.passport"/>" required="" id="passport2" name="passport"
-                               pattern="^[А-Я]{2}[0-9]{6}$"/>
-                    </div>
-                    <div>
-                        <input type="date" placeholder="<fmt:message key="placeholder.birthday"/>" required="" id="birthday2" name="birthday"/>
-                    </div>
-                </c:otherwise>
-            </c:choose>
-            <input type="submit" value="<fmt:message key="sign.up"/>"/>
-        </form>
-    </section>
+    <form class="form-signin" name="registration-form" action="/register" method="post">
+        <h3 class="h3 mb-3 font-weight-normal"><fmt:message key="registration.form"/></h3>
+        <c:choose>
+            <c:when test="${not empty errors}">
+                <fmt:message key="${errors['email'][0]}"/>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.email"/>" required title="Email error"
+                           name="email" class="form-control"
+                           value="<%=request.getParameter("email")%>"/>
+                </div>
+                <fmt:message key="${errors['username'][0]}"/>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.username"/>" required=""
+                           name="username" class="form-control"
+                           value="<%=request.getParameter("username")%>"/>
+                </div>
+                <fmt:message key="${errors['password'][0]}"/>
+                <div>
+                    <input type="password" placeholder="<fmt:message key="placeholder.password"/>" required=""
+                           class="form-control" name="password"/>
+                </div>
+                <fmt:message key="${errors['first_name'][0]}"/>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.first.name"/>" required=""
+                           class="form-control" name="first_name"
+                           value="<%=request.getParameter("first_name")%>"/>
+                </div>
+                <fmt:message key="${errors['middle_name'][0]}"/>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required=""
+                           class="form-control" name="middle_name"
+                           value="<%=request.getParameter("middle_name")%>"/>
+                </div>
+                <fmt:message key="${errors['last_name'][0]}"/>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.last.name"/>" required=""
+                           class="form-control" name="last_name"
+                           value="<%=request.getParameter("last_name")%>"/>
+                </div>
+                <fmt:message key="${errors['passport'][0]}"/>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.passport"/>" required=""
+                           name="passport" class="form-control"
+                           pattern="^[А-Я]{2}[0-9]{6}$" value="<%=request.getParameter("passport")%>"/>
+                </div>
+                <fmt:message key="${errors['birthday'][0]}"/>
+                <div>
+                    <input type="date" placeholder="<fmt:message key="placeholder.birthday"/>" required=""
+                           name="birthday" class="form-control"
+                           value="<%=request.getParameter("birthday")%>"/>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.email"/>" required title="Email error"
+                           class="form-control" name="email"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.username"/>" required=""
+                           class="form-control" name="username"/>
+                </div>
+                <div>
+                    <input type="password" placeholder="<fmt:message key="placeholder.password"/>" required=""
+                           class="form-control" name="password"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.first.name"/>" required=""
+                           class="form-control" name="first_name"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required=""
+                           class="form-control" name="middle_name"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required=""
+                           class="form-control" name="last_name"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.passport"/>" required=""
+                           class="form-control" name="passport"
+                           pattern="^[А-Я]{2}[0-9]{6}$"/>
+                </div>
+                <div>
+                    <input type="date" placeholder="<fmt:message key="placeholder.birthday"/>" required=""
+                           class="form-control" name="birthday"/>
+                </div>
+            </c:otherwise>
+        </c:choose>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="register"/></button>
+    </form>
 </div>
 </body>
 </html>

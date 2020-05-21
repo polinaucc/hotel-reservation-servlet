@@ -8,6 +8,7 @@ import ua.polina.controller.command.utility.CommandSessionUtility;
 import ua.polina.model.entity.User;
 import ua.polina.model.service.UserService;
 
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
@@ -30,7 +31,8 @@ public class LoginCommand extends MultipleMethodCommand {
         String password = request.getParameter("password");
         Optional<User> user = userService.getUserByUsername(username);
         if (user.isEmpty() || !CommandBCryptUtility.isPasswordMatches(password, user.get().getPassword())) {
-            return "redirect:/login?error";
+            request.setAttribute("illegalCred", "login.invalid.credentials");
+            return "/login.jsp";
         } else {
             LOGGER.info("Logged user: " + user.get().getUsername());
             CommandSessionUtility.setUserForSession(request, user.get());

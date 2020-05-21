@@ -37,7 +37,6 @@ public class PaginationUtility {
 
         try {
             result = Integer.parseInt(parameter);
-            System.out.println("RESULT: " + result);
         } catch (NumberFormatException e) {
             result = defaultParameter;
         }

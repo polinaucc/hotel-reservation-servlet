@@ -54,7 +54,7 @@ public class AddRequestCommand extends MultipleMethodCommand {
             requestDto.setCheckInDate(LocalDate.parse(request.getParameter("check_in_date")));
             requestDto.setCheckOutDate(LocalDate.parse(request.getParameter("check_out_date")));
             Description description = descriptionService.getDescriptionByParameters(requestDto)
-                    .orElseThrow(() -> new IllegalArgumentException("Unfortunately, there is no such Description"));
+                    .orElseThrow(() -> new IllegalArgumentException("no.description"));
             String error = validate(request, requestDto);
             if (error.equals("")) {
                 requestService.saveNewRequest(requestDto, client, description);

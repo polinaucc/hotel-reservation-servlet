@@ -1,0 +1,49 @@
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+body {
+    align-items: center;
+}
+
+.container {
+    align-items: center;
+    align-content: center;
+    margin-top: 50px;
+    width: 300px;
+}
+
+.btn{
+    margin-top: 25px;
+}
+.btn {
+    margin-top: 25px;
+}
+
+.error {
+    font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+    color: #c62828;
+}
+
+h2{
+    width: 90vw;
+    display: inline-block;
+}
+.header-container{
+    display: inline-block;
+}
+h3 {
+    width: 90vw;
+    display: inline-block;
+}
+
+.lang2 {
+    display: inline-block;
+}

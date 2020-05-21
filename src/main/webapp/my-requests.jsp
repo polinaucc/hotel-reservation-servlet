@@ -7,11 +7,20 @@
 <html>
 <head>
     <title><fmt:message key="all.requests"/></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 <body>
-<jsp:include page="language-fragment.jsp"/>
-<h2>My Requests</h2>
-<table border="1">
+<style>
+    <%@include file="css/app_styles.css"%>
+</style>
+<h3 class="h3 mb-3 font-weight-normal"><fmt:message key="all.requests"/></h3>
+<div class="lang2">
+    <jsp:include page="language-fragment.jsp"/>
+</div>
+
+<table class="table table-hover">
     <thead>
     <tr>
         <th><fmt:message key="room.type"/></th>

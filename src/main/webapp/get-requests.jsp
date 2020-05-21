@@ -7,21 +7,19 @@
 <fmt:setBundle basename="messages"/>
 <html>
 <style>
-    li{
-        float: left;
-        padding: 5px;
-    }
-    li a{
-        display: block;
-    }
+    <%@include file="css/app_styles.css"%>
 </style>
 <head>
     <title><fmt:message key="all.requests"/></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="language-fragment.jsp"/>
-<h2>Requests</h2>
-<table border="1">
+<div class="header-container">
+    <h2><fmt:message key="all.requests"/></h2>
+    <jsp:include page="language-fragment.jsp"/>
+</div>
+<table class="table table-hover">
     <thead>
     <tr>
         <th><fmt:message key="client"/></th>

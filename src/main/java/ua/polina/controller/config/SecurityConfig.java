@@ -21,6 +21,7 @@ public class SecurityConfig {
         adminUrlPatterns.add("find-room");
         adminUrlPatterns.add("add-reservation");
         adminUrlPatterns.add("reservation-info");
+        adminUrlPatterns.add("get-requests");
 
         Set<String> clientUrlPatterns = new HashSet<>();
         clientUrlPatterns.add("add-request");
