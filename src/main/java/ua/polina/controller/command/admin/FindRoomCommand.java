@@ -1,5 +1,7 @@
 package ua.polina.controller.command.admin;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.controller.command.Command;
 import ua.polina.controller.command.MultipleMethodCommand;
 import ua.polina.model.entity.Request;
@@ -14,18 +16,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class FindRoomCommand implements Command {
     private final RequestService requestService;
     private final RoomService roomService;
     private final ReservationService reservationService;
+    private static final Logger LOGGER = LogManager.getLogger(FindRoomCommand.class);
+    private ResourceBundle rb;
 
     public FindRoomCommand(RequestService requestService, RoomService roomService, ReservationService reservationService) {
+        rb = ResourceBundle.getBundle("messages", new Locale("en", "US"));
         this.requestService = requestService;
         this.roomService = roomService;
         this.reservationService = reservationService;
     }
-
 
     @Override
     public String execute(HttpServletRequest servletRequest) {
@@ -65,8 +71,9 @@ public class FindRoomCommand implements Command {
 
             return "/find-room.jsp";
         }
-        catch (IllegalArgumentException ie){
-            servletRequest.setAttribute("smthError", ie.getMessage());
+        catch (IllegalArgumentException e){
+            LOGGER.warn(rb.getString(e.getMessage()));
+            servletRequest.setAttribute("smthError", e.getMessage());
             return "/error.jsp";
         }
     }

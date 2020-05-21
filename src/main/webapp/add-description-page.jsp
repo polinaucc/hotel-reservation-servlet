@@ -11,8 +11,12 @@
     <title><fmt:message key="description.form"/></title>
 </head>
 <body>
-<jsp:include page="language-fragment.jsp"/>
-${error}
+<jsp:include page="language-fragment.jsp"/> </br>
+
+<c:if test="${not empty error}">
+    <fmt:message key="${error}"/>
+</c:if>
+
 <div class="container">
     <section id="content">
         <form action="/add-description" method="post">
