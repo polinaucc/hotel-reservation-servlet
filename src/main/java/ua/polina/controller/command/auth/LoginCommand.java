@@ -1,5 +1,7 @@
 package ua.polina.controller.command.auth;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.controller.command.MultipleMethodCommand;
 import ua.polina.controller.command.utility.CommandBCryptUtility;
 import ua.polina.controller.command.utility.CommandSessionUtility;
@@ -11,6 +13,7 @@ import java.util.Optional;
 
 public class LoginCommand extends MultipleMethodCommand {
     private UserService userService;
+    private static final Logger LOGGER = LogManager.getLogger(LoginCommand.class);
 
     public LoginCommand(UserService userService) {
         this.userService = userService;
@@ -29,6 +32,7 @@ public class LoginCommand extends MultipleMethodCommand {
         if (user.isEmpty() || !CommandBCryptUtility.isPasswordMatches(password, user.get().getPassword())) {
             return "redirect:/login?error";
         } else {
+            LOGGER.info("Logged user: " + user.get().getUsername());
             CommandSessionUtility.setUserForSession(request, user.get());
             return "redirect:/";
         }

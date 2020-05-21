@@ -1,5 +1,9 @@
 package ua.polina.controller.command.admin;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import ua.polina.controller.command.MultipleMethodCommand;
 import ua.polina.model.dto.DescriptionDto;
 import ua.polina.model.entity.Description;
@@ -10,12 +14,17 @@ import ua.polina.model.service.DescriptionService;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class AddDescriptionCommand extends MultipleMethodCommand {
     private final DescriptionService descriptionService;
+    private static final Logger LOGGER = LogManager.getLogger(AddDescriptionCommand.class);
+    private ResourceBundle rb;
 
     public AddDescriptionCommand(DescriptionService descriptionService) {
+        rb = ResourceBundle.getBundle("messages", new Locale("en", "US"));
         this.descriptionService = descriptionService;
     }
 
@@ -39,8 +48,9 @@ public class AddDescriptionCommand extends MultipleMethodCommand {
             }
             descriptionService.saveNewDescription(descriptionDto);
             return "/ok.jsp";
-        } catch (DataExistsException dee) {
-            request.setAttribute("error", dee.getMessage());
+        } catch (DataExistsException e) {
+            LOGGER.warn(rb.getString(e.getMessage()));
+            request.setAttribute("error", e.getMessage());
             return "/add-description-page.jsp";
         }
     }

@@ -1,5 +1,7 @@
 package ua.polina.controller.command.client;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.controller.command.MultipleMethodCommand;
 import ua.polina.controller.validator.DateSequenceValidator;
 import ua.polina.controller.validator.DateValidator;
@@ -17,13 +19,18 @@ import ua.polina.model.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class AddRequestCommand extends MultipleMethodCommand {
     private final RequestService requestService;
     private final DescriptionService descriptionService;
     private final ClientService clientService;
+    private final Logger LOGGER = LogManager.getLogger(AddRequestCommand.class);
+    private ResourceBundle rb;
 
     public AddRequestCommand(RequestService requestService, DescriptionService descriptionService, ClientService clientService) {
+        rb = ResourceBundle.getBundle("messages", new Locale("en", "US"));
         this.requestService = requestService;
         this.descriptionService = descriptionService;
         this.clientService = clientService;
@@ -57,9 +64,9 @@ public class AddRequestCommand extends MultipleMethodCommand {
                 return "/add-request.jsp";
             }
         }
-        catch (IllegalArgumentException ie){
-            String err = ie.getMessage();
-            request.setAttribute("argumentError", err);
+        catch (IllegalArgumentException e){
+            LOGGER.warn(rb.getString(e.getMessage()));
+            request.setAttribute("argumentError", e.getMessage());
             return "/add-request.jsp";
         }
     }
@@ -72,8 +79,9 @@ public class AddRequestCommand extends MultipleMethodCommand {
             dateValidator.validate(servletRequest, requestDto.getCheckInDate().toString());
             dateValidator.validate(servletRequest, requestDto.getCheckOutDate().toString());
             return "";
-        } catch (DateException de) {
-            return de.getMessage();
+        } catch (DateException e) {
+            LOGGER.warn(rb.getString(e.getMessage()));
+            return e.getMessage();
         }
     }
 }
