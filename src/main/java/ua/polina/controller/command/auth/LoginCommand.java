@@ -8,7 +8,6 @@ import ua.polina.controller.command.utility.CommandSessionUtility;
 import ua.polina.model.entity.User;
 import ua.polina.model.service.UserService;
 
-import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
@@ -22,7 +21,10 @@ public class LoginCommand extends MultipleMethodCommand {
 
     @Override
     protected String executeGet(HttpServletRequest request) {
-        return "/login.jsp";
+        User user = (User) request.getSession().getAttribute("principals");
+        if (user == null) {
+            return "/login.jsp";
+        } else return "/index.jsp";
     }
 
     @Override
