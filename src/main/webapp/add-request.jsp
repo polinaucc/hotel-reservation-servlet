@@ -20,9 +20,11 @@
         <form action="/add-request" method="post">
             <h3 class="h3 mb-3 font-weight-normal"><fmt:message key="request.form"/></h3>
             <jsp:include page="language-fragment.jsp"/>
-            <c:if test="${not empty argumentError}">
-                <fmt:message key="${argumentError}"/>
-            </c:if>
+            <div class="error">
+                <c:if test="${not empty argumentError}">
+                    <fmt:message key="${argumentError}"/>
+                </c:if>
+            </div>
             <div class="form-group">
                 <label for="room"><fmt:message key="select.appartmant.class"/></label>
                 <select class="form-control" id="room" name="roomType">
