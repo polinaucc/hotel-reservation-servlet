@@ -31,9 +31,9 @@
                 </select>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="room.add"/></button>
-
         </form>
     </section>
+    <a href="/" ><fmt:message key="home"/></a>
 </div>
 </body>
 </html>

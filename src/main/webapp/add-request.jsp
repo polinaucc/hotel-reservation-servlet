@@ -18,7 +18,7 @@
 <div class="container">
     <section id="content">
         <form action="/add-request" method="post">
-            <h3 class="h3 mb-3 font-weight-normal"><fmt:message key="request.form"/></h3>
+            <h3 class="h3 name font-weight-normal"><fmt:message key="request.form"/></h3>
             <jsp:include page="language-fragment.jsp"/>
             <div class="error">
                 <c:if test="${not empty argumentError}">
@@ -91,6 +91,7 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="apply"/></button>
         </form>
     </section>
+    <a href="/" ><fmt:message key="home"/></a>
 </div>
 </body>
 </html>

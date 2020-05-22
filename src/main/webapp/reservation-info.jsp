@@ -20,5 +20,6 @@
     <h1><fmt:message key="reservation.sum"/></h1>
     <h1>${reservation.sum}</h1>
 </div>
+<a href="/" ><fmt:message key="home"/></a>
 </body>
 </html>

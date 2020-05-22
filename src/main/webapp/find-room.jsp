@@ -29,5 +29,6 @@
         </form>
     </section>
 </div>
+<a href="/" ><fmt:message key="home"/></a>
 </body>
 </html>

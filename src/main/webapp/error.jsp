@@ -11,6 +11,7 @@
 <jsp:include page="language-fragment.jsp"/>
 <h5>Something went wrong:(</h5>
 <h2><fmt:message key="${smthError}"/></h2>
+<a href="/" ><fmt:message key="home"/></a>
 </body>
 </html>
 

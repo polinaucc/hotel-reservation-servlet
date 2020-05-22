@@ -17,8 +17,10 @@
 <body>
 <div class="header-container">
     <h2><fmt:message key="all.requests"/></h2>
-    <a href="?currentPage=${param.currentPage}&recordsPerPage=${param.recordsPerPage}&lang=en"><fmt:message key="language.eng"/></a> |
-    <a href="?currentPage=${param.currentPage}&recordsPerPage=${param.recordsPerPage}&lang=uk"><fmt:message key="language.ua"/></a>
+    <a href="?currentPage=${param.currentPage}&recordsPerPage=${param.recordsPerPage}&lang=en"><fmt:message
+            key="language.eng"/></a> |
+    <a href="?currentPage=${param.currentPage}&recordsPerPage=${param.recordsPerPage}&lang=uk"><fmt:message
+            key="language.ua"/></a>
 </div>
 <table class="table table-hover">
     <thead>
@@ -62,21 +64,22 @@
 </table>
 
 
-<ul style="list-style-type: none">
+<ul class="pagination justify-content-center">
     <c:forEach begin="1" end="${numberOfPages}" var="i">
         <c:choose>
             <c:when test="${currentPage eq i}">
-                <li>${i}</li>
+                <li class="page-item">${i}</li>
             </c:when>
             <c:otherwise>
-                <li>
-                    <a href="${command}?currentPage=${i}&recordsPerPage=${recordsPerPage}">${i}</a>
+                <li class="page-item">
+                    <a class="page-link" href="${command}?currentPage=${i}&recordsPerPage=${recordsPerPage}">${i}</a>
                 </li>
             </c:otherwise>
         </c:choose>
     </c:forEach>
 </ul>
-
-
+<div class="home">
+    <a href="/"><fmt:message key="home"/></a>
+</div>
 </body>
 </html>

@@ -11,10 +11,10 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body class="text-center" data-gr-c-s-loaded="true">
+<jsp:include page="index.jsp"/>
 <style>
     <%@include file="css/app_styles.css"%>
 </style>
-<jsp:include page="index.jsp"/>
 <div class="container">
     <div class="error">
         <c:if test="${not empty illegalCred}">
@@ -22,7 +22,7 @@
         </c:if>
     </div>
     <form class="form-signin" action="/login" method="post">
-        <h3 class="h3 name font-weight-normal"><fmt:message key="login.form"/></h3>
+        <h3 class="h3 font-weight-normal name"><fmt:message key="login.form"/></h3>
         <input type="text" placeholder="<fmt:message key="placeholder.username"/>" required=""
                name="username" class="form-control"/>
         <input type="password" placeholder="<fmt:message key="placeholder.password"/>" required=""
@@ -30,6 +30,5 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.log.in"/></button>
     </form>
 </div>
-
 </body>
 </html>
