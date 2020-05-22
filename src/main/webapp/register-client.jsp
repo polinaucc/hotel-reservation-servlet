@@ -1,7 +1,7 @@
-<%@ page import="ua.polina.model.entity.RoomType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="messages"/>
@@ -12,26 +12,27 @@
     <title><fmt:message key="register"/></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/app_styles.css">
 </head>
 <style>
-    .form-signin{
-        width: 100%;
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
-    }
-    *, ::after, ::before {
-        box-sizing: border-box;
-    }
+    <%@include file="css/app_styles.css"%>
+    /*.form-signin {*/
+    /*    width: 100%;*/
+    /*    max-width: 330px;*/
+    /*    padding: 15px;*/
+    /*    margin: 0 auto;*/
+    /*}*/
 
-    body{
-        align-items: center;
-    }
+    /**, ::after, ::before {*/
+    /*    box-sizing: border-box;*/
+    /*}*/
 
-    .container{
-        margin-top: 110px;
-    }
+    /*body {*/
+    /*    align-items: center;*/
+    /*}*/
+
+    /*.container {*/
+    /*    margin-top: 110px;*/
+    /*}*/
 </style>
 <body class="text-center" data-gr-c-s-loaded="true">
 <jsp:include page="index.jsp"/>
@@ -40,48 +41,66 @@
         <h3 class="h3 mb-3 font-weight-normal"><fmt:message key="registration.form"/></h3>
         <c:choose>
             <c:when test="${not empty errors}">
-                <fmt:message key="${errors['email'][0]}"/>
+                <div class="error">
+                    <c:if test="${not empty errors['email'][0]}"><fmt:message key="${errors['email'][0]}"/></c:if>
+                </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.email"/>" required title="Email error"
                            name="email" class="form-control"
                            value="<%=request.getParameter("email")%>"/>
                 </div>
-                <fmt:message key="${errors['username'][0]}"/>
+                <div class="error">
+                    <c:if test="${not empty errors['username'][0]}"><fmt:message key="${errors['username'][0]}"/></c:if>
+                </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.username"/>" required=""
                            name="username" class="form-control"
                            value="<%=request.getParameter("username")%>"/>
                 </div>
-                <fmt:message key="${errors['password'][0]}"/>
+                <div class="error">
+                    <c:if test="${not empty errors['password'][0]}"><fmt:message key="${errors['password'][0]}"/></c:if>
+                </div>
                 <div>
                     <input type="password" placeholder="<fmt:message key="placeholder.password"/>" required=""
                            class="form-control" name="password"/>
                 </div>
-                <fmt:message key="${errors['first_name'][0]}"/>
+                <div class="error">
+                    <c:if test="${not empty errors['first_name'][0]}"><fmt:message
+                            key="${errors['first_name'][0]}"/></c:if>
+                </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.first.name"/>" required=""
                            class="form-control" name="first_name"
                            value="<%=request.getParameter("first_name")%>"/>
                 </div>
-                <fmt:message key="${errors['middle_name'][0]}"/>
+                <div class="error">
+                    <c:if test="${not empty errors['middle_name'][0]}"><fmt:message key="${errors['middle_name'][0]}"/></c:if>
+                </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required=""
                            class="form-control" name="middle_name"
                            value="<%=request.getParameter("middle_name")%>"/>
                 </div>
-                <fmt:message key="${errors['last_name'][0]}"/>
+                <div class="error">
+                    <C:if test="${not empty errors['last_name'][0]}"><fmt:message
+                            key="${errors['last_name'][0]}"/></C:if>
+                </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.last.name"/>" required=""
                            class="form-control" name="last_name"
                            value="<%=request.getParameter("last_name")%>"/>
                 </div>
-                <fmt:message key="${errors['passport'][0]}"/>
+                <div class="error">
+                    <c:if test="${not empty errors['passport'][0]}"><fmt:message key="${errors['passport'][0]}"/></c:if>
+                </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.passport"/>" required=""
                            name="passport" class="form-control"
                            pattern="^[А-Я]{2}[0-9]{6}$" value="<%=request.getParameter("passport")%>"/>
                 </div>
-                <fmt:message key="${errors['birthday'][0]}"/>
+                <div class="error">
+                    <c:if test="${not empty errors['birthday'][0]}"><fmt:message key="${errors['birthday'][0]}"/></c:if>
+                </div>
                 <div>
                     <input type="date" placeholder="<fmt:message key="placeholder.birthday"/>" required=""
                            name="birthday" class="form-control"
