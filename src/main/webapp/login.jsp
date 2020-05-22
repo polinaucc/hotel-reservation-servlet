@@ -22,7 +22,7 @@
         </c:if>
     </div>
     <form class="form-signin" action="/login" method="post">
-        <h3 class="h3 mb-3 font-weight-normal"><fmt:message key="login.form"/></h3>
+        <h3 class="h3 name font-weight-normal"><fmt:message key="login.form"/></h3>
         <input type="text" placeholder="<fmt:message key="placeholder.username"/>" required=""
                name="username" class="form-control"/>
         <input type="password" placeholder="<fmt:message key="placeholder.password"/>" required=""

@@ -2,7 +2,12 @@
     width: 100%;
     max-width: 330px;
     padding: 15px;
-    margin: 0 auto;
+}
+
+.name{
+    width: 100%;
+    max-width: 330px;
+    margin-right: 200px;
 }
 
 *, ::after, ::before {
@@ -32,15 +37,11 @@ body {
     color: #c62828;
 }
 
-h2{
+h2, h3{
     width: 90vw;
     display: inline-block;
 }
 .header-container{
-    display: inline-block;
-}
-h3 {
-    width: 90vw;
     display: inline-block;
 }
 

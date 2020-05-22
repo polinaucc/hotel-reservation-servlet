@@ -21,7 +21,7 @@
 <div class="container">
     <section id="content">
         <form action="/add-description" method="post">
-            <h1><fmt:message key="description.form"/></h1>
+            <h3 class="h3 font-weight-normal name"><fmt:message key="description.form"/></h3>
             <div class="col-lg-6">
                 <label for="room"><fmt:message key="room.select.description"/></label>
                 <select class="form-control" id="room" name="roomType">

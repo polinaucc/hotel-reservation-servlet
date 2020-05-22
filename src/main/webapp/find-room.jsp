@@ -15,7 +15,7 @@
 <div class="container">
     <section id="content">
         <form action="/add-reservation" method="post">
-            <h3 class="h3 mb-3 font-weight-normal">Choose room</h3>
+            <h3 class="h3 name font-weight-normal">Choose room</h3>
             <div class="form-group">
                 <label for="room"><fmt:message key="select.free.room"/></label>
                 <select class="form-control" id="room" name="room_id">

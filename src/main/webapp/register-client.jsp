@@ -13,32 +13,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<style>
-    <%@include file="css/app_styles.css"%>
-    /*.form-signin {*/
-    /*    width: 100%;*/
-    /*    max-width: 330px;*/
-    /*    padding: 15px;*/
-    /*    margin: 0 auto;*/
-    /*}*/
 
-    /**, ::after, ::before {*/
-    /*    box-sizing: border-box;*/
-    /*}*/
-
-    /*body {*/
-    /*    align-items: center;*/
-    /*}*/
-
-    /*.container {*/
-    /*    margin-top: 110px;*/
-    /*}*/
-</style>
 <body class="text-center" data-gr-c-s-loaded="true">
 <jsp:include page="index.jsp"/>
+<style>
+    <%@include file="css/app_styles.css"%>
+</style>
 <div class="container">
     <form class="form-signin" name="registration-form" action="/register" method="post">
-        <h3 class="h3 mb-3 font-weight-normal"><fmt:message key="registration.form"/></h3>
+        <h3 class="h3 font-weight-normal name"><fmt:message key="registration.form"/></h3>
         <c:choose>
             <c:when test="${not empty errors}">
                 <div class="error">
