@@ -17,7 +17,8 @@
 <body>
 <div class="header-container">
     <h2><fmt:message key="all.requests"/></h2>
-    <jsp:include page="language-fragment.jsp"/>
+    <a href="?currentPage=${param.currentPage}&recordsPerPage=${param.recordsPerPage}&lang=en"><fmt:message key="language.eng"/></a> |
+    <a href="?currentPage=${param.currentPage}&recordsPerPage=${param.recordsPerPage}&lang=uk"><fmt:message key="language.ua"/></a>
 </div>
 <table class="table table-hover">
     <thead>

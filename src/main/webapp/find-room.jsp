@@ -19,6 +19,7 @@
             <div class="form-group">
                 <label for="room"><fmt:message key="select.free.room"/></label>
                 <select class="form-control" id="room" name="room_id">
+
                     <c:forEach var="room" items="${rooms}">
                         <option value="${room.id}"><c:out value="${room.roomNumber}"/></option>
                     </c:forEach>

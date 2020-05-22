@@ -11,7 +11,6 @@ public class PaginationUtility {
     public <T> void paginate(int currentPage, int recordsPerPage, int entries, List<T> entities,
                              String command, HttpServletRequest request) {
         int numberOfPages = (int) Math.ceil((double) entries / recordsPerPage);
-        System.out.println(numberOfPages);
 
         request.setAttribute("entities", entities);
         request.setAttribute("currentPage", currentPage);

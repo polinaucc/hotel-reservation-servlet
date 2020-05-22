@@ -44,6 +44,14 @@ h3 {
     display: inline-block;
 }
 
+li{
+    float: left;
+    padding: 5px;
+}
+li a{
+    display: block;
+}
+
 .lang2 {
     display: inline-block;
 }

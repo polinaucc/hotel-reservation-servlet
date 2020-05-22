@@ -32,16 +32,19 @@ public class AddReservationCommand implements Command {
     public String execute(HttpServletRequest servletRequest) {
         try {
             HttpSession session = servletRequest.getSession();
-            Long roomId = Long.parseLong(servletRequest.getParameter("room_id"));
-            Room room = roomService.getRoomById(roomId)
-                    .orElseThrow(() -> new IllegalArgumentException("no.room"));
-            Long requestId = (Long) (session.getAttribute("request_id"));
-            Request request = requestService.getRequestById(requestId)
-                    .orElseThrow(() -> new IllegalArgumentException("no.request.with.id"));
-            reservationService.saveReservation(request, room);
-            return "redirect:/get-requests";
-        }
-        catch (IllegalArgumentException e){
+            if (servletRequest.getParameter("room_id") != null) {
+                long roomId = Long.parseLong(servletRequest.getParameter("room_id"));
+                Room room = roomService.getRoomById(roomId)
+                        .orElseThrow(() -> new IllegalArgumentException("no.room"));
+                Long requestId = (Long) (session.getAttribute("request_id"));
+                Request request = requestService.getRequestById(requestId)
+                        .orElseThrow(() -> new IllegalArgumentException("no.request.with.id"));
+                reservationService.saveReservation(request, room);
+                return "redirect:/get-requests";
+            }
+            else throw new IllegalArgumentException("no.room");
+
+        } catch (IllegalArgumentException e) {
             LOGGER.warn(rb.getString(e.getMessage()));
             servletRequest.setAttribute("smthError", e.getMessage());
             return "/error.jsp";
