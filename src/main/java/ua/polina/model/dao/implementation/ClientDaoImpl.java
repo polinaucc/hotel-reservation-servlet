@@ -1,5 +1,7 @@
 package ua.polina.model.dao.implementation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.model.dao.ClientDao;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.UserDao;
@@ -14,6 +16,7 @@ import java.util.*;
 public class ClientDaoImpl implements ClientDao {
     private final Connection connection;
     private final DaoFactory daoFactory = DaoFactory.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger(ClientDaoImpl.class);
 
     public ClientDaoImpl(Connection connection) {
         this.connection = connection;
@@ -32,7 +35,7 @@ public class ClientDaoImpl implements ClientDao {
                 entity.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
@@ -43,7 +46,7 @@ public class ClientDaoImpl implements ClientDao {
             preparedStatement.setLong(7, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
@@ -53,7 +56,7 @@ public class ClientDaoImpl implements ClientDao {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
@@ -63,11 +66,12 @@ public class ClientDaoImpl implements ClientDao {
             preparedStatement.setLong(1, id);
             return findClientsByPreparedStatement(preparedStatement).get(0);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return null;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -75,17 +79,27 @@ public class ClientDaoImpl implements ClientDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_CLIENT_FIND_ALL)) {
             return findClientsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return new ArrayList<>();
         }
-        return null;
     }
 
-    //TODO: to implement
     @Override
     public List<Client> findAll(Integer offset, Integer limit) {
-        return null;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_CLIENT_FIND_ALL_PAGINATION)){
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            return findClientsByPreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     @Override

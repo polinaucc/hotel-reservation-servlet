@@ -27,6 +27,8 @@ public interface SqlConstants {
 
     String SQL_CLIENT_FIND_BY_USER = "SELECT * FROM client WHERE user_id = ?";
 
+    String SQL_CLIENT_FIND_ALL_PAGINATION = "SELECT * FROM client ORDER BY id ASC LIMIT ? OFFSET ?";
+
     String SQL_USER_INSERT = " INSERT into users (" +
             "email, " +
             "username, " +
@@ -60,6 +62,8 @@ public interface SqlConstants {
 
     String SQL_DESCRIPTION_FIND_ALL = "SELECT * FROM description";
 
+    String SQL_DESCRIPTION_FIND_ALL_PAGINATION = "SELECT * FROM description ORDER BY id ASC LIMIT ? OFFSET ?";
+
     String SQL_DESCRIPTION_DELETE_BY_ID = "DELETE FROM description WHERE id=?";
 
     String SQL_DESCRIPTION_FIND_BY_ROOM_TYPE_COUNT_BEDS_COUNT_PERSONS = "SELECT * FROM description WHERE " +
@@ -86,6 +90,8 @@ public interface SqlConstants {
             "out_date = ?, " +
             "status = ?" +
             "WHERE id = ?";
+
+    String SQL_REQUEST_DELETE_BY_ID = "DELETE FROM request WHERE id=?";
 
     String SQL_REQUEST_FIND_BY_CLIENT = "SELECT * FROM request WHERE client_id = ?";
 

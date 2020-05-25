@@ -1,5 +1,7 @@
 package ua.polina.model.dao.implementation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.DescriptionDao;
 import ua.polina.model.dao.mapper.DescriptionMapper;
@@ -12,6 +14,7 @@ import java.util.*;
 public class DescriptionDaoImpl implements DescriptionDao {
     private final Connection connection;
     private final DaoFactory daoFactory = DaoFactory.getInstance();
+    private static Logger LOGGER = LogManager.getLogger(DescriptionDaoImpl.class);
 
     public DescriptionDaoImpl(Connection connection) {
         this.connection = connection;
@@ -29,7 +32,7 @@ public class DescriptionDaoImpl implements DescriptionDao {
                 entity.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
@@ -40,7 +43,7 @@ public class DescriptionDaoImpl implements DescriptionDao {
             preparedStatement.setLong(5, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
@@ -50,7 +53,7 @@ public class DescriptionDaoImpl implements DescriptionDao {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
@@ -60,11 +63,9 @@ public class DescriptionDaoImpl implements DescriptionDao {
             preparedStatement.setLong(1, id);
             return findDescriptionsByPreparedStatement(preparedStatement).get(0);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -72,18 +73,28 @@ public class DescriptionDaoImpl implements DescriptionDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_DESCRIPTION_FIND_ALL)) {
             return findDescriptionsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
         }
-        return null;
     }
 
-    //TODO: to implement
     @Override
     public List<Description> findAll(Integer offset, Integer limit) {
-        return null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_DESCRIPTION_FIND_ALL_PAGINATION)) {
+
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+
+            return findDescriptionsByPreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
+
 
     @Override
     public void close() {
@@ -101,7 +112,7 @@ public class DescriptionDaoImpl implements DescriptionDao {
         preparedStatement.setBigDecimal(4, entity.getCostPerNight());
     }
 
-    private List<Description> findDescriptionsByPreparedStatement(PreparedStatement preparedStatement) throws Exception {
+    private List<Description> findDescriptionsByPreparedStatement(PreparedStatement preparedStatement) throws SQLException {
         Map<Long, Description> descriptions = new HashMap<>();
         ResultSet resultSet = preparedStatement.executeQuery();
         DescriptionMapper descriptionMapper = new DescriptionMapper();
@@ -120,9 +131,9 @@ public class DescriptionDaoImpl implements DescriptionDao {
             preparedStatement.setInt(3, countOfBeds);
             return Optional.of(findDescriptionsByPreparedStatement(preparedStatement).get(0));
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return Optional.empty();
     }

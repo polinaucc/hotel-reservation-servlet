@@ -1,5 +1,7 @@
 package ua.polina.model.dao.implementation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.model.dao.ClientDao;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.DescriptionDao;
@@ -18,6 +20,7 @@ import java.util.Map;
 public class RequestDaoImpl implements RequestDao {
     private final Connection connection;
     private final DaoFactory daoFactory = DaoFactory.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger(RequestDaoImpl.class);
 
     public RequestDaoImpl(Connection connection) {
         this.connection = connection;
@@ -35,7 +38,7 @@ public class RequestDaoImpl implements RequestDao {
                 entity.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
@@ -46,14 +49,18 @@ public class RequestDaoImpl implements RequestDao {
             preparedStatement.setLong(6, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
-    //TODO: write query constant and implement method
     @Override
     public void delete(Long id) {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_REQUEST_DELETE_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+        }
     }
 
     @Override
@@ -62,11 +69,12 @@ public class RequestDaoImpl implements RequestDao {
             preparedStatement.setLong(1, id);
             return findRequestsByPreparedStatement(preparedStatement).get(0);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return null;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -74,11 +82,12 @@ public class RequestDaoImpl implements RequestDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_REQUEST_FIND_ALL)) {
             return findRequestsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return new ArrayList<>();
         }
-        return null;
     }
 
     @Override
@@ -90,11 +99,13 @@ public class RequestDaoImpl implements RequestDao {
 
             return findRequestsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
+
     }
 
     @Override
@@ -112,11 +123,12 @@ public class RequestDaoImpl implements RequestDao {
             preparedStatement.setLong(1, clientId);
             return findRequestsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return new ArrayList<>();
         }
-        return null;
     }
 
     @Override
@@ -127,9 +139,9 @@ public class RequestDaoImpl implements RequestDao {
 
             return resultSet.next() ? resultSet.getInt(1) : 0;
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return 0;
         }
-        return 0;
     }
 
 
