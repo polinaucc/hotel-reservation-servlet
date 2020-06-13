@@ -23,7 +23,12 @@
     <form class="form-signin" name="registration-form" action="/register" method="post">
         <h3 class="h3 font-weight-normal name"><fmt:message key="registration.form"/></h3>
         <c:choose>
-            <c:when test="${not empty errors}">
+            <c:when test="${not empty errors || not empty error}">
+                <div class="error">
+                    <c:if test="${not empty error}">
+                        <fmt:message key="${error}"/>
+                    </c:if>
+                </div>
                 <div class="error">
                     <c:if test="${not empty errors['email'][0]}"><fmt:message key="${errors['email'][0]}"/></c:if>
                 </div>

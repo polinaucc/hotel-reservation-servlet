@@ -35,9 +35,21 @@ public interface SqlConstants {
             "password) " +
             "VALUES(?,?,?)";
 
+    String SQL_USER_UPDATE = "UPDATE users SET (" +
+            "email, " +
+            "username, " +
+            "password) " +
+            "WHERE id=?";
+
     String SQL_USER_FIND_BY_ID = "SELECT * FROM users WHERE id=?";
 
+    String SQL_USER_FIND_ALL = "SELECT * FROM users";
+
+    String SQL_USER_FIND_ALL_PAGINATION = "SELECT * FROM users ORDER BY id ASC LIMIT ? OFFSET ?";
+
     String SQL_USER_FIND_BY_USERNAME = "SELECT * FROM users WHERE username=?";
+
+    String SQL_USER_FIND_BY_EMAIL = "SELECT * FROM users WHERE email=?";
 
     String SQL_USER_ROLE_INSERT = "INSERT into user_role (" +
             "user_id, " +
@@ -45,6 +57,12 @@ public interface SqlConstants {
             "VALUES(?,?)";
 
     String SQL_USER_ROLE_FIND_BY_USER = "SELECT * FROM user_role WHERE user_id=?";
+
+    String SQL_USER_ROLE_UPDATE = "UPDATE user_role SET (" +
+            "authorities) " +
+            "WHERE user_id=?";
+
+    String SQL_USER_DELETE_BY_ID = "DELETE FROM users WHERE id=?";
 
     String SQL_DESCRIPTION_INSERT = "INSERT into description (" +
             "room_type, " +
@@ -104,6 +122,18 @@ public interface SqlConstants {
     String SQL_RESERVATION_FIND_BY_REQUEST = "SELECT * FROM reservation WHERE request_id = ?";
 
     String SQL_RESERVATION_FIND_ALL = "SELECT * FROM reservation";
+    
+    String SQL_RESERVATION_FIND_BY_ID = "SELECT * FROM reservation WHERE id = ?";
+
+    String SQL_RESERVATION_UPDATE = "UPDATE reservation SET (" +
+            "request_id=?, " +
+            "room_id=?, " +
+            "sum=?) " +
+            "WHERE id=?";
+
+    String SQL_RESERVATION_DELETE = "DELETE FROM reservation WHERE id=?";
+
+    String SQL_RESERVATION_FIND_ALL_PAGINATION = "SELECT * FROM reservation ORDER BY id ASC LIMIT ? OFFSET ?";
 
     String SQL_ROOM_INSERT = "INSERT into room (room_number, description_id) VALUES(?,?)";
 
@@ -112,4 +142,14 @@ public interface SqlConstants {
     String SQL_ROOM_FIND_BY_ID = "SELECT * FROM room WHERE id = ?";
 
     String SQL_ROOM_FIND_ALL = "SELECT * FROM room";
+
+    String SQL_ROOM_UPDATE = "UPDATE room SET (" +
+            "request_id=?, " +
+            "room_id=?, " +
+            "sum=?) " +
+            "WHERE id=?";
+
+    String SQL_ROOM_DELETE_BY_ID = "DELETE FROM room WHERE id=?";
+
+    String SQL_ROOM_FIND_ALL_PAGINATION = "SELECT * FROM room ORDER BY id ASC LIMIT ? OFFSET ?";
 }

@@ -1,5 +1,7 @@
 package ua.polina.model.dao.implementation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.UserDao;
 import ua.polina.model.dao.UserRoleDao;
@@ -17,6 +19,7 @@ import java.util.List;
 public class UserRoleDaoImpl implements UserRoleDao {
     private final Connection connection;
     private final DaoFactory daoFactory= DaoFactory.getInstance();
+    private static Logger LOGGER = LogManager.getLogger(UserRole.class);
 
     public UserRoleDaoImpl(Connection connection) {
         this.connection = connection;
@@ -32,31 +35,32 @@ public class UserRoleDaoImpl implements UserRoleDao {
         }
     }
 
-    //TODO:implement method
     @Override
     public void update(UserRole entity) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_ROLE_UPDATE)) {
+            fillPreparedStatement(entity, preparedStatement);
+            preparedStatement.setLong(3, entity.getUser().getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+        }
 
     }
 
-    //TODO:implement method
     @Override
     public void delete(Long id) {
-
     }
 
-    //TODO:implement method
     @Override
     public UserRole findById(Long id) {
         return null;
     }
 
-    //TODO:implement method
     @Override
     public List<UserRole> findAll() {
         return null;
     }
 
-    //TODO: to implement
     @Override
     public List<UserRole> findAll(Integer offset, Integer limit) {
         return null;

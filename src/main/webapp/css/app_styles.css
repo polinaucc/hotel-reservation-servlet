@@ -15,6 +15,7 @@
     width: 100%;
     text-align: center;
 }
+
 body {
     align-items: center;
 }
@@ -29,6 +30,7 @@ body {
 .btn{
     margin-top: 25px;
 }
+
 .btn {
     margin-top: 25px;
 }
@@ -51,6 +53,7 @@ li{
     float: left;
     padding: 5px;
 }
+
 li a{
     display: block;
 }

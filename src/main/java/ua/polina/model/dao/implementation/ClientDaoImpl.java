@@ -8,6 +8,7 @@ import ua.polina.model.dao.UserDao;
 import ua.polina.model.dao.mapper.ClientMapper;
 import ua.polina.model.entity.Client;
 import ua.polina.model.entity.User;
+import ua.polina.model.exception.DataExistsException;
 
 import java.sql.Date;
 import java.sql.*;
@@ -23,7 +24,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void create(Client entity) {
+    public void create(Client entity) throws DataExistsException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 SqlConstants.SQL_CLIENT_INSERT, Statement.RETURN_GENERATED_KEYS)) {
             fillPreparedStatement(entity, preparedStatement);
@@ -35,6 +36,9 @@ public class ClientDaoImpl implements ClientDao {
                 entity.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
+            if(e.getSQLState().equals("23505")){
+                throw new DataExistsException("passport.exists");
+            }
             LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }

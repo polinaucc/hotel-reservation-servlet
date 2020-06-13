@@ -9,6 +9,7 @@ import ua.polina.model.entity.Client;
 import ua.polina.model.entity.Role;
 import ua.polina.model.entity.User;
 import ua.polina.model.entity.UserRole;
+import ua.polina.model.exception.DataExistsException;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -20,28 +21,25 @@ public class ClientService {
     public ClientService() {
     }
 
-    public void saveNewClient(SignUpDto signUpDto) {
+    public void saveNewClient(SignUpDto signUpDto) throws Exception {
         try (ClientDao clientDao = daoFactory.createClientDao()) {
             User user = saveUser(signUpDto);
-//            Client client = new Client();
-//            client.setFirstName(signUpDto.getFirstName());
-//            client.setMiddleName(signUpDto.getMiddleName());
-//            client.setLastName(signUpDto.getLastName());
-//            client.setPassport(signUpDto.getPassport());
-//            client.setBirthday(signUpDto.getBirthday());
-//            client.setUser(user);
-//            clientDao.create(client);
-        } catch (Exception e) {
-            e.printStackTrace();
+            Client client = new Client();
+            client.setFirstName(signUpDto.getFirstName());
+            client.setMiddleName(signUpDto.getMiddleName());
+            client.setLastName(signUpDto.getLastName());
+            client.setPassport(signUpDto.getPassport());
+            client.setBirthday(signUpDto.getBirthday());
+            client.setUser(user);
+           clientDao.create(client);
         }
     }
 
-    private User saveUser(SignUpDto signUpDto) {
-        //TODO: dataExists exception - if email or username exists
+    private User saveUser(SignUpDto signUpDto) throws Exception {
         try (UserDao userDao = daoFactory.createUserDao()) {
             User user = new User();
             HashSet<Role> roles = new HashSet<>();
-            roles.add(Role.ADMIN);
+            roles.add(Role.CLIENT);
             user.setAuthorities(roles);
             user.setUsername(signUpDto.getUsername());
             user.setEmail(signUpDto.getEmail());
@@ -49,10 +47,8 @@ public class ClientService {
             userDao.create(user);
             saveRoles(user);
             return user;
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return null;
+
     }
 
     private void saveRoles(User user) {

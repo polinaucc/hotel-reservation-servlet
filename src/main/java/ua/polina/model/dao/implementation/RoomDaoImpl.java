@@ -1,5 +1,7 @@
 package ua.polina.model.dao.implementation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.DescriptionDao;
 import ua.polina.model.dao.RoomDao;
@@ -16,6 +18,7 @@ import java.util.Map;
 public class RoomDaoImpl implements RoomDao {
     private final Connection connection;
     private final DaoFactory daoFactory= DaoFactory.getInstance();
+    private static Logger LOGGER = LogManager.getLogger(RoomDaoImpl.class);
 
     public RoomDaoImpl(Connection connection) {
         this.connection = connection;
@@ -38,16 +41,26 @@ public class RoomDaoImpl implements RoomDao {
 
     }
 
-    //TODO: implement method
     @Override
     public void update(Room entity) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_ROOM_UPDATE)) {
+            fillPreparedStatement(entity, preparedStatement);
+            preparedStatement.setLong(3, entity.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+        }
 
     }
 
-    //TODO: implement method
     @Override
     public void delete(Long id) {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_ROOM_DELETE_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+        }
     }
 
     @Override
@@ -75,10 +88,21 @@ public class RoomDaoImpl implements RoomDao {
         return null;
     }
 
-    //TODO: to implement
     @Override
     public List<Room> findAll(Integer offset, Integer limit) {
-        return null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_ROOM_FIND_ALL_PAGINATION)) {
+
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+
+            return findRoomsByPreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     @Override

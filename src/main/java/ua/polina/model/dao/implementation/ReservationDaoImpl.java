@@ -1,5 +1,7 @@
 package ua.polina.model.dao.implementation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.RequestDao;
 import ua.polina.model.dao.ReservationDao;
@@ -15,6 +17,8 @@ import java.util.*;
 public class ReservationDaoImpl implements ReservationDao {
     private final Connection connection;
     private final DaoFactory daoFactory = DaoFactory.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger(ReservationDaoImpl.class);
+
 
     public ReservationDaoImpl(Connection connection) {
         this.connection = connection;
@@ -38,22 +42,40 @@ public class ReservationDaoImpl implements ReservationDao {
 
     }
 
-    //TODO: implement method
     @Override
     public void update(Reservation entity) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_RESERVATION_UPDATE)) {
+            fillPreparedStatement(entity, preparedStatement);
+            preparedStatement.setLong(4, entity.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+        }
 
     }
 
-    //TODO: implement method
     @Override
     public void delete(Long id) {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_RESERVATION_DELETE)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+        }
     }
 
-    //TODO: implement method
     @Override
     public Reservation findById(Long id) {
-        return null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_RESERVATION_FIND_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            return findReservationsByPreparedStatement(preparedStatement).get(0);
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return null;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -68,10 +90,21 @@ public class ReservationDaoImpl implements ReservationDao {
         return null;
     }
 
-    //TODO: to implement
     @Override
     public List<Reservation> findAll(Integer offset, Integer limit) {
-        return null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_RESERVATION_FIND_ALL_PAGINATION)) {
+
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+
+            return findReservationsByPreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     @Override

@@ -1,12 +1,14 @@
 package ua.polina.model.dao.implementation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.UserDao;
 import ua.polina.model.dao.UserRoleDao;
 import ua.polina.model.dao.mapper.UserMapper;
 import ua.polina.model.entity.Role;
 import ua.polina.model.entity.User;
-import ua.polina.model.entity.UserRole;
+import ua.polina.model.exception.DataExistsException;
 
 import java.sql.*;
 import java.util.*;
@@ -14,13 +16,14 @@ import java.util.*;
 public class UserDaoImpl implements UserDao {
     private final Connection connection;
     private final DaoFactory daoFactory = DaoFactory.getInstance();
+    private static Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
 
     public UserDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(User entity) {
+    public void create(User entity) throws DataExistsException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_INSERT, Statement.RETURN_GENERATED_KEYS)) {
             fillPreparedStatement(entity, preparedStatement);
             preparedStatement.executeUpdate();
@@ -31,19 +34,33 @@ public class UserDaoImpl implements UserDao {
                 entity.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
+            if(e.getSQLState().equals("23505")){
+                throw new DataExistsException("email.or.username.exists");
+            }
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void update(User entity) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_UPDATE)) {
+            fillPreparedStatement(entity, preparedStatement);
+            preparedStatement.setLong(4, entity.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
         }
     }
 
-    //TODO:implement method
-    @Override
-    public void update(User entity) {
-
-    }
-
-    //TODO:implement method
     @Override
     public void delete(Long id) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_DELETE_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+        }
 
     }
 
@@ -64,7 +81,10 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findByUsername(String username) {
         try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_BY_USERNAME)){
             preparedStatement.setString(1, username);
-            return Optional.of(findUsersByPreparedStatement(preparedStatement).get(0));
+            if(findUsersByPreparedStatement(preparedStatement).isEmpty()){
+                return Optional.empty();
+            }
+            else return Optional.of(findUsersByPreparedStatement(preparedStatement).get(0));
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
@@ -73,16 +93,32 @@ public class UserDaoImpl implements UserDao {
         return Optional.empty();
     }
 
-    //TODO: implement method
     @Override
     public List<User> findAll() {
-        return null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_ALL)) {
+            return findUsersByPreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
-    //TODO: to implement
     @Override
     public List<User> findAll(Integer offset, Integer limit) {
-        return null;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_ALL_PAGINATION)){
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            return findUsersByPreparedStatement(preparedStatement);
+        } catch (SQLException e) {
+            LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     @Override
@@ -114,6 +150,5 @@ public class UserDaoImpl implements UserDao {
         }
         userRoleDao.close();
         return new ArrayList<>(users.values());
-
     }
 }
