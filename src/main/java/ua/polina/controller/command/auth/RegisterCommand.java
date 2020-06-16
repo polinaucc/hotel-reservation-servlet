@@ -44,9 +44,7 @@ public class RegisterCommand extends MultipleMethodCommand {
                 clientService.saveNewClient(signUpDto);
                 return "/ok.jsp";
             } else return "/register-client.jsp";
-        }
-        catch (DataExistsException e){
-            System.out.println("Hoooraaay");
+        } catch (DataExistsException e) {
             request.setAttribute("error", e.getMessage());
             return "/register-client.jsp";
         }
@@ -86,9 +84,6 @@ public class RegisterCommand extends MultipleMethodCommand {
         CompositeValidator.BIRTHDAY.validate(request, signUpDto.getBirthday().toString()).ifPresent(messages -> {
             validationMessages.put("birthday", messages);
         });
-
-        System.out.println(validationMessages.values());
-
         return validationMessages;
     }
 }

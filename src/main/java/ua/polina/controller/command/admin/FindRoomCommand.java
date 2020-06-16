@@ -47,18 +47,8 @@ public class FindRoomCommand implements Command {
 
             List<Reservation> reservations = reservationService.getAllReservations();
 
-            //TODO:for in for
             for (Room room : rooms) {
-                for (Reservation res : reservations) {
-                    if (res.getRoom().equals(room) &&
-                            (request.getCheckInDate().compareTo(res.getRequest().getCheckInDate()) >= 0 &&
-                                    request.getCheckInDate().isBefore(res.getRequest().getCheckOutDate())) ||
-                            (request.getCheckOutDate().compareTo(res.getRequest().getCheckInDate()) >= 0 &&
-                                    request.getCheckOutDate().compareTo(res.getRequest().getCheckOutDate()) <= 0)) {
-                        wrongRooms.add(room);
-                        break;
-                    }
-                }
+                findWrongRooms(request, wrongRooms, reservations, room);
             }
             for (Room r : wrongRooms) {
                 rooms.remove(r);
@@ -75,6 +65,19 @@ public class FindRoomCommand implements Command {
             LOGGER.warn(rb.getString(e.getMessage()));
             servletRequest.setAttribute("smthError", e.getMessage());
             return "/error.jsp";
+        }
+    }
+
+    private void findWrongRooms(Request request, List<Room> wrongRooms, List<Reservation> reservations, Room room) {
+        for (Reservation res : reservations) {
+            if (res.getRoom().equals(room) &&
+                    ((request.getCheckInDate().compareTo(res.getRequest().getCheckInDate()) >= 0 &&
+                            request.getCheckInDate().isBefore(res.getRequest().getCheckOutDate())) ||
+                    (request.getCheckOutDate().compareTo(res.getRequest().getCheckInDate()) >= 0 &&
+                            request.getCheckOutDate().compareTo(res.getRequest().getCheckOutDate()) <= 0))) {
+                wrongRooms.add(room);
+                break;
+            }
         }
     }
 }
