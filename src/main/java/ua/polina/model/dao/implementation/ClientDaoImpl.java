@@ -47,7 +47,7 @@ public class ClientDaoImpl implements ClientDao {
     public void update(Client entity) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_CLIENT_UPDATE)) {
             fillPreparedStatement(entity, preparedStatement);
-            preparedStatement.setLong(7, entity.getId());
+            preparedStatement.setLong(10, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
@@ -117,11 +117,14 @@ public class ClientDaoImpl implements ClientDao {
 
     private void fillPreparedStatement(Client entity, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setString(1, entity.getFirstName());
-        preparedStatement.setString(2, entity.getMiddleName());
-        preparedStatement.setString(3, entity.getLastName());
-        preparedStatement.setString(4, entity.getPassport());
-        preparedStatement.setDate(5, Date.valueOf(entity.getBirthday()));
-        preparedStatement.setLong(6, entity.getUser().getId());
+        preparedStatement.setString(2, entity.getFirstNameUk());
+        preparedStatement.setString(3, entity.getMiddleName());
+        preparedStatement.setString(4, entity.getMiddleNameUk());
+        preparedStatement.setString(5, entity.getLastName());
+        preparedStatement.setString(6, entity.getLastNameUk());
+        preparedStatement.setString(7, entity.getPassport());
+        preparedStatement.setDate(8, Date.valueOf(entity.getBirthday()));
+        preparedStatement.setLong(9, entity.getUser().getId());
     }
 
     private List<Client> findClientsByPreparedStatement(PreparedStatement preparedStatement) throws Exception {

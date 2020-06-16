@@ -34,12 +34,12 @@
     <tbody>
     <c:forEach items="${requests}" var="req">
         <tr>
-            <td>${req.description.roomType}</td>
+            <td><fmt:message key="${req.description.roomType.getDisplayValue()}"/></td>
             <td>${req.description.countOfPersons}</td>
             <td>${req.description.countOfBeds}</td>
             <td>${req.checkInDate}</td>
             <td>${req.checkOutDate}</td>
-            <td>${req.status}</td>
+            <td><fmt:message key="${req.status.getMessage()}"/></td>
             <td>
                 <c:if test="${req.status eq 'Accepted'}">
                     <a href="reservation-info?id=${req.id}"><fmt:message key="check.reservation"/></a>

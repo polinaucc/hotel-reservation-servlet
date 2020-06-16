@@ -3,19 +3,25 @@ package ua.polina.model.dao.implementation;
 public interface SqlConstants {
     String SQL_CLIENT_INSERT = "INSERT into client (" +
             "first_name, " +
+            "first_name_uk," +
             "middle_name, " +
+            "middle_name_uk," +
             "last_name, " +
+            "last_name_uk, " +
             "passport, " +
             "birthday, " +
             "user_id) " +
-            "VALUES (?,?,?,?,?,?)";
+            "VALUES (?,?,?,?,?,?,?,?,?)";
 
     String SQL_CLIENT_UPDATE = "UPDATE client SET (" +
-            "first_name=?, " +
-            "middle_name=?, " +
-            "last_name=?, " +
-            "passport=?, " +
-            "birthday=?, " +
+            "first_name, " +
+            "first_name_uk" +
+            "middle_name, " +
+            "middle_name_uk" +
+            "last_name, " +
+            "last_name_uk" +
+            "passport, " +
+            "birthday, " +
             "user_id=?) " +
             "WHERE id=?";
 

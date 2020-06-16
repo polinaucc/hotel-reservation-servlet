@@ -62,12 +62,29 @@
                            value="<%=request.getParameter("first_name")%>"/>
                 </div>
                 <div class="error">
+                    <c:if test="${not empty errors['first_name_uk'][0]}"><fmt:message
+                            key="${errors['first_name_uk'][0]}"/></c:if>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.first.name.uk"/>" required=""
+                           class="form-control" name="first_name_uk"
+                           value="<%=request.getParameter("first_name_uk")%>"/>
+                </div>
+                <div class="error">
                     <c:if test="${not empty errors['middle_name'][0]}"><fmt:message key="${errors['middle_name'][0]}"/></c:if>
                 </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required=""
                            class="form-control" name="middle_name"
                            value="<%=request.getParameter("middle_name")%>"/>
+                </div>
+                <div class="error">
+                    <c:if test="${not empty errors['middle_name_uk'][0]}"><fmt:message key="${errors['middle_name_uk'][0]}"/></c:if>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.middle.name.uk"/>" required=""
+                           class="form-control" name="middle_name_uk"
+                           value="<%=request.getParameter("middle_name_uk")%>"/>
                 </div>
                 <div class="error">
                     <C:if test="${not empty errors['last_name'][0]}"><fmt:message
@@ -77,6 +94,15 @@
                     <input type="text" placeholder="<fmt:message key="placeholder.last.name"/>" required=""
                            class="form-control" name="last_name"
                            value="<%=request.getParameter("last_name")%>"/>
+                </div>
+                <div class="error">
+                    <C:if test="${not empty errors['last_name_uk'][0]}"><fmt:message
+                            key="${errors['last_name_uk'][0]}"/></C:if>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.last.name.uk"/>" required=""
+                           class="form-control" name="last_name_uk"
+                           value="<%=request.getParameter("last_name_uk")%>"/>
                 </div>
                 <div class="error">
                     <c:if test="${not empty errors['passport'][0]}"><fmt:message key="${errors['passport'][0]}"/></c:if>
@@ -113,12 +139,24 @@
                            class="form-control" name="first_name"/>
                 </div>
                 <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.first.name.uk"/>" required=""
+                           class="form-control" name="first_name_uk"/>
+                </div>
+                <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required=""
                            class="form-control" name="middle_name"/>
                 </div>
                 <div>
-                    <input type="text" placeholder="<fmt:message key="placeholder.second.name"/>" required=""
+                    <input type="text" placeholder="<fmt:message key="placeholder.middle.name.uk"/>" required=""
+                           class="form-control" name="middle_name_uk"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.last.name"/>" required=""
                            class="form-control" name="last_name"/>
+                </div>
+                <div>
+                    <input type="text" placeholder="<fmt:message key="placeholder.last.name.uk"/>" required=""
+                           class="form-control" name="last_name_uk"/>
                 </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.passport"/>" required=""

@@ -33,8 +33,11 @@ public class RegisterCommand extends MultipleMethodCommand {
             signUpDto.setUsername(request.getParameter("username"));
             signUpDto.setPassword(request.getParameter("password"));
             signUpDto.setFirstName(request.getParameter("first_name"));
+            signUpDto.setFirstNameUk(request.getParameter("first_name_uk"));
             signUpDto.setMiddleName(request.getParameter("middle_name"));
+            signUpDto.setMiddleNameUk(request.getParameter("middle_name_uk"));
             signUpDto.setLastName(request.getParameter("last_name"));
+            signUpDto.setLastNameUk(request.getParameter("last_name_uk"));
             signUpDto.setPassport(request.getParameter("passport"));
             signUpDto.setBirthday(LocalDate.parse(request.getParameter("birthday")));
             Map<String, List<String>> validationMessages = validate(request, signUpDto);
@@ -69,12 +72,24 @@ public class RegisterCommand extends MultipleMethodCommand {
             validationMessages.put("first_name", messages);
         });
 
+        CompositeValidator.FIRST_NAME_UK.validate(request, signUpDto.getFirstNameUk()).ifPresent(messages -> {
+            validationMessages.put("first_name_uk", messages);
+        });
+
         CompositeValidator.MIDDLE_NAME.validate(request, signUpDto.getMiddleName()).ifPresent(messages -> {
             validationMessages.put("middle_name", messages);
         });
 
+        CompositeValidator.MIDDLE_NAME_UK.validate(request, signUpDto.getMiddleNameUk()).ifPresent(messages -> {
+            validationMessages.put("middle_name_uk", messages);
+        });
+
         CompositeValidator.LAST_NAME.validate(request, signUpDto.getLastName()).ifPresent(messages -> {
             validationMessages.put("last_name", messages);
+        });
+
+        CompositeValidator.LAST_NAME_UK.validate(request, signUpDto.getLastNameUk()).ifPresent(messages -> {
+            validationMessages.put("last_name_uk", messages);
         });
 
         CompositeValidator.PASSPORT.validate(request, signUpDto.getPassport()).ifPresent(messages -> {

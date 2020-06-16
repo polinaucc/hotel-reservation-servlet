@@ -12,8 +12,11 @@ public class ClientMapper implements Mapper<Client> {
         Client client = new Client();
         client.setId(resultSet.getLong("id"));
         client.setFirstName(resultSet.getString("first_name"));
+        client.setFirstNameUk(resultSet.getString("first_name_uk"));
         client.setMiddleName(resultSet.getString("middle_name"));
+        client.setMiddleNameUk(resultSet.getString("middle_name_uk"));
         client.setLastName(resultSet.getString("last_name"));
+        client.setLastNameUk(resultSet.getString("last_name_uk"));
         client.setPassport(resultSet.getString("passport"));
         client.setBirthday(resultSet.getDate("birthday").toLocalDate());
         return client;

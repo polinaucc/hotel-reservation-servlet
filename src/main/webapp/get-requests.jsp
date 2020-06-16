@@ -37,13 +37,22 @@
     <tbody>
     <c:forEach items="${entities}" var="request">
         <tr>
-            <td>${request.client.firstName} ${request.client.middleName} ${request.client.lastName}</td>
-            <td>${request.description.roomType}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${sessionScope.lang eq 'en' or empty sessionScope.lang }">
+                        ${request.client.firstName} ${request.client.middleName} ${request.client.lastName}
+                    </c:when>
+                    <c:otherwise>
+                        ${request.client.firstNameUk} ${request.client.middleNameUk} ${request.client.lastNameUk}
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td><fmt:message key="${request.description.roomType.getDisplayValue()}"/></td>
             <td>${request.description.countOfPersons}</td>
             <td>${request.description.countOfBeds}</td>
             <td>${request.checkInDate}</td>
             <td>${request.checkOutDate}</td>
-            <td>${request.status}</td>
+            <td><fmt:message key="${request.status.getMessage()}"/></td>
             <td>
                 <a href="find-room?id=${request.id}">
                     <c:if test="${request.status eq 'New_request'}">

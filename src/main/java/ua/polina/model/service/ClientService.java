@@ -26,8 +26,11 @@ public class ClientService {
             User user = saveUser(signUpDto);
             Client client = new Client();
             client.setFirstName(signUpDto.getFirstName());
+            client.setFirstNameUk(signUpDto.getFirstNameUk());
             client.setMiddleName(signUpDto.getMiddleName());
+            client.setMiddleNameUk(signUpDto.getMiddleNameUk());
             client.setLastName(signUpDto.getLastName());
+            client.setMiddleNameUk(signUpDto.getMiddleNameUk());
             client.setPassport(signUpDto.getPassport());
             client.setBirthday(signUpDto.getBirthday());
             client.setUser(user);
