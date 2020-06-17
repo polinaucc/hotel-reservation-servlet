@@ -5,12 +5,13 @@ import ua.polina.model.exception.DateException;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 /**
  * @author Polina Serhiienko
- *
+ * <p>
  * This class is used for date validation to check if it is in the past or in the future
  */
 public class DateValidator implements Validator {
@@ -35,27 +36,35 @@ public class DateValidator implements Validator {
      * @throws DateException date exception
      */
     private void isPastDate(String field) throws DateException {
-        LocalDate todayDate = LocalDate.now();
-        LocalDate date = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK));
-        if (date.isAfter(todayDate)) throw new DateException("past.date");
-        if (ChronoUnit.YEARS.between(date, todayDate) < 18) throw new DateException("full.aged.person");
+        try {
+            LocalDate todayDate = LocalDate.now();
+            LocalDate date = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK));
+            if (date.isAfter(todayDate)) throw new DateException("past.date");
+            if (ChronoUnit.YEARS.between(date, todayDate) < 18) throw new DateException("full.aged.person");
+        } catch (DateTimeParseException e) {
+            throw new DateException("wrong.date.format");
+        }
     }
 
     /**
-     * check if the date should be un the future
+     * check if the date should be in the future
      *
      * @param field the date from the form
      * @throws DateException date exception
      */
     private void isFutureDate(String field) throws DateException {
-        LocalDate todayDate = LocalDate.now();
-        LocalDate date = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK));
-        if(date.isBefore(todayDate)) throw new DateException("future.date");
+        try {
+            LocalDate todayDate = LocalDate.now();
+            LocalDate date = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.UK));
+            if (date.isBefore(todayDate)) throw new DateException("future.date");
+        } catch (DateTimeParseException e) {
+            throw new DateException("wrong.date.format");
+        }
     }
 
     @Override
     public void validate(HttpServletRequest request, String field) throws DateException {
-        if(option==Option.IS_PAST) isPastDate(field);
-        if(option==Option.IS_FUTURE) isFutureDate(field);
+        if (option == Option.IS_PAST) isPastDate(field);
+        if (option == Option.IS_FUTURE) isFutureDate(field);
     }
 }
