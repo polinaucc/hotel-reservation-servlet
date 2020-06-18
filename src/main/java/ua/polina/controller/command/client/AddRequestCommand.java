@@ -19,6 +19,7 @@ import ua.polina.model.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -67,6 +68,10 @@ public class AddRequestCommand extends MultipleMethodCommand {
         catch (IllegalArgumentException e){
             LOGGER.warn(rb.getString(e.getMessage()));
             request.setAttribute("argumentError", e.getMessage());
+            return "/add-request.jsp";
+        }
+        catch (DateTimeParseException e){
+            request.setAttribute("error", "wrong.date.format");
             return "/add-request.jsp";
         }
     }
