@@ -42,9 +42,7 @@ public class ClientService {
             for (Role r : roles) {
                 userRole.setUser(user);
                 userRole.setRole(r);
-                System.out.println("Before user_role save " + transactionalDaoFactory.getConnection().toString());
                 userRoleDao.create(userRole);
-                System.out.println("After user_role save " + transactionalDaoFactory.getConnection().toString());
             }
 
             Client client = formClient(signUpDto, user);
@@ -59,7 +57,6 @@ public class ClientService {
                 LOGGER.error("Something went wrong with transaction");
             }
         } finally {
-            System.out.println("FINALLY " + transactionalDaoFactory.getConnection().toString());
             transactionalDaoFactory.close();
         }
     }
@@ -90,7 +87,7 @@ public class ClientService {
     }
 
     public Optional<Client> getClientByUser(User user) {
-        try (ClientDao clientDao = daoFactory.createClientDao()) {
+        try (ClientDao clientDao = transactionalDaoFactory.createClientDao()) {
             return clientDao.findByUser(user.getId());
         } catch (Exception e) {
             e.printStackTrace();
