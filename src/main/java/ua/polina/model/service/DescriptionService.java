@@ -13,10 +13,9 @@ import java.util.Optional;
 public class DescriptionService {
     private final DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void saveNewDescription(DescriptionDto descriptionDto){
-        try(DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
+    public void saveNewDescription(DescriptionDto descriptionDto) {
+        try (DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
             Description description = formDescription(descriptionDto);
-
             descriptionDao.create(description);
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,8 +31,8 @@ public class DescriptionService {
         return description;
     }
 
-    public Optional<Description> getDescriptionByParameters(RequestDto requestDto){
-        try(DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
+    public Optional<Description> getDescriptionByParameters(RequestDto requestDto) {
+        try (DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
             return descriptionDao.findDescriptionByRoomTypeAndCountOfPersonsAndCountOfBeds(
                     requestDto.getRoomType(),
                     requestDto.getCountOfPerson(),
@@ -45,8 +44,8 @@ public class DescriptionService {
         return Optional.empty();
     }
 
-    public List<Description> getAllDescriptions(){
-        try(DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
+    public List<Description> getAllDescriptions() {
+        try (DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
             return descriptionDao.findAll();
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,8 +53,8 @@ public class DescriptionService {
         return new ArrayList<>();
     }
 
-    public Optional<Description> getDescriptionById(Long id){
-        try(DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
+    public Optional<Description> getDescriptionById(Long id) {
+        try (DescriptionDao descriptionDao = daoFactory.createDescriptionDao()) {
             return Optional.of(descriptionDao.findById(id));
         } catch (Exception e) {
             e.printStackTrace();

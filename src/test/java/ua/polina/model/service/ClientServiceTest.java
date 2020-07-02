@@ -85,6 +85,7 @@ public class ClientServiceTest {
         signUpDto.setPassport("АБ456894");
         signUpDto.setBirthday(LocalDate.of(1999, 4, 18));
 
+        user = new User();
         user.setId(1L);
         HashSet<Role> roles = new HashSet<>();
         roles.add(Role.CLIENT);
@@ -108,7 +109,7 @@ public class ClientServiceTest {
         when(transactionalDaoFactory.createUserDao()).thenReturn(userDao);
         when(transactionalDaoFactory.createUserRoleDao()).thenReturn(userRoleDao);
 
-       clientService.saveNewClient(signUpDto);
+        clientService.saveNewClient(signUpDto);
 
         Mockito.verify(userDao, Mockito.times(1)).create(Mockito.any());
         Mockito.verify(clientDao, Mockito.times(1)).create(Mockito.any());
@@ -119,11 +120,11 @@ public class ClientServiceTest {
     public void getClientByUser() throws Exception {
         whenNew(TransactionalDaoFactory.class).withNoArguments().thenReturn(transactionalDaoFactory);
         given(transactionalDaoFactory.createClientDao()).willReturn(clientDao);
-                Optional<Client> expectedClient = Optional.of(client);
-        given(clientDao.findByUser(Mockito.any()))
+        Optional<Client> expectedClient = Optional.of(client);
+        given(clientDao.findByUser(1L))
                 .willReturn(expectedClient);
         Optional<Client> actualClient = clientService.getClientByUser(user);
         Mockito.verify(clientDao, Mockito.times(1)).findByUser(Mockito.any());
-       Assert.assertEquals(expectedClient, actualClient);
+        Assert.assertEquals(expectedClient, actualClient);
     }
 }
