@@ -1,6 +1,5 @@
 package ua.polina.controller.command.admin;
 
-import lombok.extern.log4j.Log4j;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ua.polina.controller.command.Command;

@@ -139,7 +139,7 @@ ALTER TABLE public.users
 
 
 INSERT INTO users (email, username, password )
-VALUES ('test@test', 'test', '$2a$10$6yDluhrLIz/NG1jrGg7z5OL31pt/KXouS.n/xU6hoMeeBiV.aVnvK');
+VALUES ('test1@gmail.com', 'test1', '$2a$10$wZXSm13GbIn9TrWDRSXhZ.QKE/HVAceeJvFMFENzLZHcBp9C2AURC');
 INSERT INTO users (email, username, password )
 VALUES ('admin@admin', 'admin', '$2a$10$Ku9Sf4YzNXyWykVrh8IYyuQo8XJTOZV48AtIZ0yBF53kMUjBHlJXS');
 

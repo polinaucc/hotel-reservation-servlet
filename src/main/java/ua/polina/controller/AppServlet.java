@@ -1,6 +1,5 @@
 package ua.polina.controller;
 
-import lombok.SneakyThrows;
 import ua.polina.controller.command.Command;
 import ua.polina.controller.command.admin.*;
 import ua.polina.controller.command.auth.LoginCommand;
@@ -47,14 +46,21 @@ public class AppServlet extends HttpServlet {
         commands.put("my-requests", new GetMyRequestsCommand(requestService, clientService));
     }
 
-    @SneakyThrows
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    @SneakyThrows
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
