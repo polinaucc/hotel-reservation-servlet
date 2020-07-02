@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.powermock.reflect.Whitebox;
 import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.DescriptionDao;
 import ua.polina.model.dto.DescriptionDto;
@@ -17,6 +16,7 @@ import ua.polina.model.dto.RequestDto;
 import ua.polina.model.entity.Description;
 import ua.polina.model.entity.RoomType;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -34,16 +34,13 @@ public class DescriptionServiceTest {
     @Mock
     DaoFactory daoFactory;
 
-    @Mock
     RequestDto requestDto;
 
-    @Mock
     Description description;
 
     @Mock
     DescriptionDao descriptionDao;
 
-    @Mock
     DescriptionDto descriptionDto;
 
     @InjectMocks
@@ -52,6 +49,11 @@ public class DescriptionServiceTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        Field field = DescriptionService.class.getDeclaredField("daoFactory");
+        FieldHelper.makeNonFinal(field);
+        field.setAccessible(true);
+        field.set(descriptionService, daoFactory);
 
         descriptionDto = new DescriptionDto();
         descriptionDto.setRoomType(RoomType.BUSINESS);
@@ -77,7 +79,6 @@ public class DescriptionServiceTest {
 
     @Test
     public void saveNewDescription() throws Exception {
-        Whitebox.setInternalState(descriptionService, "daoFactory", daoFactory);
         Mockito.when(daoFactory.createDescriptionDao()).thenReturn(descriptionDao);
         descriptionService.saveNewDescription(descriptionDto);
         verify(descriptionDao, times(1)).create(Mockito.any());
@@ -85,7 +86,6 @@ public class DescriptionServiceTest {
 
     @Test
     public void getDescriptionByParameters() throws Exception {
-        Whitebox.setInternalState(descriptionService, "daoFactory", daoFactory);
         Mockito.when(daoFactory.createDescriptionDao()).thenReturn(descriptionDao);
 
         Mockito.when(descriptionDao.findDescriptionByRoomTypeAndCountOfPersonsAndCountOfBeds(
@@ -99,18 +99,16 @@ public class DescriptionServiceTest {
 
     @Test
     public void getAllDescriptions() {
-        Whitebox.setInternalState(descriptionService, "daoFactory", daoFactory);
         Mockito.when(daoFactory.createDescriptionDao()).thenReturn(descriptionDao);
-        List<Description> expectedList = Collections.singletonList(description);
-        given(descriptionDao.findAll()).willReturn(expectedList);
+        List<Description> expected = Collections.singletonList(description);
+        given(descriptionDao.findAll()).willReturn(expected);
         List<Description> actualList = descriptionService.getAllDescriptions();
-        Assert.assertEquals(expectedList, actualList);
+        Assert.assertEquals(expected, actualList);
 
     }
 
     @Test
     public void getDescriptionById() throws Exception {
-        Whitebox.setInternalState(descriptionService, "daoFactory", daoFactory);
         Mockito.when(daoFactory.createDescriptionDao()).thenReturn(descriptionDao);
         given(descriptionDao.findById(1L)).willReturn(description);
         Optional<Description> actualDescription = descriptionService.getDescriptionById(1L);

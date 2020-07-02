@@ -19,7 +19,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public class ClientService {
-    private final DaoFactory daoFactory = DaoFactory.getInstance();
     private TransactionalDaoFactory transactionalDaoFactory;
 
     private final Logger LOGGER = LogManager.getLogger(ClientService.class);

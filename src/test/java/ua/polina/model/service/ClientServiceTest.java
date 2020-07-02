@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.junit.MockitoJUnitRunner;
 import ua.polina.model.dao.ClientDao;
 import ua.polina.model.dao.UserDao;
@@ -26,23 +27,19 @@ import java.util.Set;
 
 import static org.mockito.BDDMockito.given;
 import static org.powermock.api.mockito.PowerMockito.when;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceTest {
-    @Mock
+
     Client client;
 
     @Mock
     TransactionalDaoFactory transactionalDaoFactory;
 
-    @Mock
     SignUpDto signUpDto;
 
-    @Mock
     User user;
 
-    @Mock
     UserRole userRole;
 
     @Mock
@@ -62,6 +59,7 @@ public class ClientServiceTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        client = new Client();
         client.setId(1L);
         client.setFirstNameUk("Антон");
         client.setFirstName("Anton");
@@ -73,6 +71,7 @@ public class ClientServiceTest {
         client.setBirthday(LocalDate.of(1999, 4, 18));
         client.setUser(new User());
 
+        signUpDto = new SignUpDto();
         signUpDto.setEmail("testUser@ukr.net");
         signUpDto.setUsername("testUser");
         signUpDto.setPassword("testuser");
@@ -94,6 +93,7 @@ public class ClientServiceTest {
         user.setEmail(signUpDto.getEmail());
         user.setPassword(signUpDto.getPassword());
 
+        userRole = new UserRole();
         Set<Role> userAuthorities = user.getAuthorities();
         for (Role r : userAuthorities) {
             userRole.setUser(user);
@@ -103,7 +103,7 @@ public class ClientServiceTest {
 
     @Test
     public void saveNewClient() throws Exception {
-        whenNew(TransactionalDaoFactory.class).withNoArguments().thenReturn(transactionalDaoFactory);
+        Whitebox.setInternalState(clientService, "transactionalDaoFactory", transactionalDaoFactory);
 
         when(transactionalDaoFactory.createClientDao()).thenReturn(clientDao);
         when(transactionalDaoFactory.createUserDao()).thenReturn(userDao);
@@ -118,7 +118,7 @@ public class ClientServiceTest {
 
     @Test
     public void getClientByUser() throws Exception {
-        whenNew(TransactionalDaoFactory.class).withNoArguments().thenReturn(transactionalDaoFactory);
+        Whitebox.setInternalState(clientService, "transactionalDaoFactory", transactionalDaoFactory);
         given(transactionalDaoFactory.createClientDao()).willReturn(clientDao);
         Optional<Client> expectedClient = Optional.of(client);
         given(clientDao.findByUser(1L))
