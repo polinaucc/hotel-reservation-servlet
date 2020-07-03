@@ -6,16 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class CommandSessionUtility {
-    public static void setUserForSession(HttpServletRequest request, User user){
+    public static void setUserForSession(HttpServletRequest request, User user) {
         HttpSession session = request.getSession();
         session.setAttribute("principals", user);
     }
 
-    public static void logoutFromSession(HttpServletRequest request){
+    public static void logoutFromSession(HttpServletRequest request) {
         request.getSession().removeAttribute("principals");
     }
 
-    public static User getCurrentUser(HttpServletRequest request){
+    public static User getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         return (User) session.getAttribute("principals");
     }

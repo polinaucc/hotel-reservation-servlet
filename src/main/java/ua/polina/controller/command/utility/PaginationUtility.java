@@ -19,7 +19,7 @@ public class PaginationUtility {
         request.setAttribute("command", command);
     }
 
-    public int getCurrentPage(HttpServletRequest request){
+    public int getCurrentPage(HttpServletRequest request) {
         return getPaginationParameter(request.getParameter("currentPage"), DEFAULT_PAGINATION_PAGE);
     }
 
@@ -27,7 +27,7 @@ public class PaginationUtility {
         return getPaginationParameter(request.getParameter("recordsPerPage"), DEFAULT_PAGINATION_RECORDS);
     }
 
-    private  int getPaginationParameter(String parameter, int defaultParameter){
+    private int getPaginationParameter(String parameter, int defaultParameter) {
         int result;
 
         if (Objects.isNull(parameter)) {
@@ -43,7 +43,7 @@ public class PaginationUtility {
         return result > 0 ? result : defaultParameter;
     }
 
-    public int getOffset(int currentPage, int recordsPerPage){
-        return currentPage*recordsPerPage-recordsPerPage;
+    public int getOffset(int currentPage, int recordsPerPage) {
+        return currentPage * recordsPerPage - recordsPerPage;
     }
 }

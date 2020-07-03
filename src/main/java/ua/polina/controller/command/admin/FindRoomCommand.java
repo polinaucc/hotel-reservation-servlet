@@ -3,7 +3,6 @@ package ua.polina.controller.command.admin;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ua.polina.controller.command.Command;
-import ua.polina.controller.command.MultipleMethodCommand;
 import ua.polina.model.entity.Request;
 import ua.polina.model.entity.Reservation;
 import ua.polina.model.entity.Room;
@@ -60,8 +59,7 @@ public class FindRoomCommand implements Command {
             else requestService.update(request, Status.Accepted);
 
             return "/find-room.jsp";
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             LOGGER.warn(rb.getString(e.getMessage()));
             servletRequest.setAttribute("smthError", e.getMessage());
             return "/error.jsp";
@@ -73,8 +71,8 @@ public class FindRoomCommand implements Command {
             if (res.getRoom().equals(room) &&
                     ((request.getCheckInDate().compareTo(res.getRequest().getCheckInDate()) >= 0 &&
                             request.getCheckInDate().isBefore(res.getRequest().getCheckOutDate())) ||
-                    (request.getCheckOutDate().compareTo(res.getRequest().getCheckInDate()) >= 0 &&
-                            request.getCheckOutDate().compareTo(res.getRequest().getCheckOutDate()) <= 0))) {
+                            (request.getCheckOutDate().compareTo(res.getRequest().getCheckInDate()) >= 0 &&
+                                    request.getCheckOutDate().compareTo(res.getRequest().getCheckOutDate()) <= 0))) {
                 wrongRooms.add(room);
                 break;
             }

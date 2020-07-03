@@ -13,8 +13,8 @@ import java.util.Optional;
 public class RoomService {
     private final DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void saveRoom(RoomDto roomDto, Description description){
-        try(RoomDao roomDao = daoFactory.createRoomDao()) {
+    public void saveRoom(RoomDto roomDto, Description description) {
+        try (RoomDao roomDao = daoFactory.createRoomDao()) {
             Room room = new Room();
             room.setRoomNumber(roomDto.getRoomNumber());
             room.setDescription(description);
@@ -24,8 +24,8 @@ public class RoomService {
         }
     }
 
-    public List<Room> getRoomsByDescription(Description description){
-        try(RoomDao roomDao = daoFactory.createRoomDao()) {
+    public List<Room> getRoomsByDescription(Description description) {
+        try (RoomDao roomDao = daoFactory.createRoomDao()) {
             return roomDao.findByDescription(description.getId());
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,8 +33,8 @@ public class RoomService {
         return new ArrayList<>();
     }
 
-    public Optional<Room> getRoomById(Long id){
-        try(RoomDao roomDao = daoFactory.createRoomDao()) {
+    public Optional<Room> getRoomById(Long id) {
+        try (RoomDao roomDao = daoFactory.createRoomDao()) {
             return Optional.of(roomDao.findById(id));
         } catch (Exception e) {
             e.printStackTrace();

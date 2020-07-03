@@ -128,7 +128,7 @@ public interface SqlConstants {
     String SQL_RESERVATION_FIND_BY_REQUEST = "SELECT * FROM reservation WHERE request_id = ?";
 
     String SQL_RESERVATION_FIND_ALL = "SELECT * FROM reservation";
-    
+
     String SQL_RESERVATION_FIND_BY_ID = "SELECT * FROM reservation WHERE id = ?";
 
     String SQL_RESERVATION_UPDATE = "UPDATE reservation SET (" +

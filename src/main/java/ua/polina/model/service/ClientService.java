@@ -3,7 +3,6 @@ package ua.polina.model.service;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ua.polina.model.dao.ClientDao;
-import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.UserDao;
 import ua.polina.model.dao.UserRoleDao;
 import ua.polina.model.dao.implementation.TransactionalDaoFactory;

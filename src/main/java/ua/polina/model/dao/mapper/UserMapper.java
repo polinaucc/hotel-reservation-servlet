@@ -4,7 +4,6 @@ import ua.polina.model.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.Map;
 
 public class UserMapper implements Mapper<User> {

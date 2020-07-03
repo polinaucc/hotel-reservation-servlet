@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
                 entity.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
-            if(e.getSQLState().equals("23505")){
+            if (e.getSQLState().equals("23505")) {
                 throw new DataExistsException("email.or.username.exists");
             }
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
@@ -79,12 +79,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_BY_USERNAME)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_BY_USERNAME)) {
             preparedStatement.setString(1, username);
-            if(findUsersByPreparedStatement(preparedStatement).isEmpty()){
+            if (findUsersByPreparedStatement(preparedStatement).isEmpty()) {
                 return Optional.empty();
-            }
-            else return Optional.of(findUsersByPreparedStatement(preparedStatement).get(0));
+            } else return Optional.of(findUsersByPreparedStatement(preparedStatement).get(0));
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
@@ -108,7 +107,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findAll(Integer offset, Integer limit) {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_ALL_PAGINATION)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_USER_FIND_ALL_PAGINATION)) {
             preparedStatement.setInt(1, limit);
             preparedStatement.setInt(2, offset);
             return findUsersByPreparedStatement(preparedStatement);

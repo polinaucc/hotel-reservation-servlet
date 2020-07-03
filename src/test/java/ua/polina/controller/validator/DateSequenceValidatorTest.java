@@ -2,17 +2,12 @@ package ua.polina.controller.validator;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import ua.polina.model.exception.DateException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.Assert.*;
 
 public class DateSequenceValidatorTest {
 

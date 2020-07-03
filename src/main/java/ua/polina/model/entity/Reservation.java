@@ -3,7 +3,8 @@ package ua.polina.model.entity;
 import java.math.BigDecimal;
 
 public class Reservation {
-    private Long id;;
+    private Long id;
+    ;
     private Request request;
     private Room room;
     private BigDecimal sum;

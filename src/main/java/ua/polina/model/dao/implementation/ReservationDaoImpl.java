@@ -80,7 +80,7 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public List<Reservation> findAll() {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_RESERVATION_FIND_ALL)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_RESERVATION_FIND_ALL)) {
             return findReservationsByPreparedStatement(preparedStatement);
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
@@ -108,7 +108,7 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
-    public void close(){
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {

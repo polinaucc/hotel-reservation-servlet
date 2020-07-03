@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class GetRequestsCommand implements Command {
-    private  static final String commandName = "get-requests";
+    private static final String commandName = "get-requests";
     private final RequestService requestService;
     private final PaginationUtility paginationUtility;
 

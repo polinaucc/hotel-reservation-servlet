@@ -34,8 +34,7 @@ public class GetReservationInfoCommand implements Command {
                     .orElseThrow(() -> new IllegalArgumentException("no.reservation.by.request"));
             servletRequest.setAttribute("reservation", reservation);
             return "/reservation-info.jsp";
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             LOGGER.warn(rb.getString(e.getMessage()));
             servletRequest.setAttribute("smthError", e.getMessage());
             return "/error.jsp";

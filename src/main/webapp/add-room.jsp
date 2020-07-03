@@ -21,7 +21,8 @@
             <h1><fmt:message key="room.form"/></h1>
             <jsp:include page="language-fragment.jsp"/>
             <div class="form-group">
-                <input class="form-control" type="text" placeholder="<fmt:message key="room.number"/>" required="" id="roomNumber" name="room_number"/>
+                <input class="form-control" type="text" placeholder="<fmt:message key="room.number"/>" required=""
+                       id="roomNumber" name="room_number"/>
             </div>
             <div class="form-group">
                 <select class="form-control" id="room" name="description_id">
@@ -33,7 +34,7 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="room.add"/></button>
         </form>
     </section>
-    <a href="/" ><fmt:message key="home"/></a>
+    <a href="/"><fmt:message key="home"/></a>
 </div>
 </body>
 </html>

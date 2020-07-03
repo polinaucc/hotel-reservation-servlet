@@ -44,8 +44,7 @@ public class AddReservationCommand implements Command {
                         .orElseThrow(() -> new IllegalArgumentException("no.request.with.id"));
                 reservationService.saveReservation(request, room);
                 return "redirect:/get-requests";
-            }
-            else throw new IllegalArgumentException("no.room");
+            } else throw new IllegalArgumentException("no.room");
 
         } catch (IllegalArgumentException e) {
             LOGGER.warn(rb.getString(e.getMessage()));

@@ -6,7 +6,6 @@ import ua.polina.model.dao.DaoFactory;
 import ua.polina.model.dao.UserDao;
 import ua.polina.model.dao.UserRoleDao;
 import ua.polina.model.entity.Role;
-import ua.polina.model.entity.User;
 import ua.polina.model.entity.UserRole;
 
 import java.sql.Connection;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class UserRoleDaoImpl implements UserRoleDao {
     private final Connection connection;
-    private final DaoFactory daoFactory= DaoFactory.getInstance();
+    private final DaoFactory daoFactory = DaoFactory.getInstance();
     private static Logger LOGGER = LogManager.getLogger(UserRole.class);
 
     public UserRoleDaoImpl(Connection connection) {
@@ -98,7 +97,7 @@ public class UserRoleDaoImpl implements UserRoleDao {
         ResultSet resultSet = preparedStatement.executeQuery();
         UserDao userDao = daoFactory.createUserDao();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             Role role = Role.valueOf(resultSet.getString("authorities"));
             roles.add(role);
         }

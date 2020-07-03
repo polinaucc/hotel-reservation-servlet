@@ -19,19 +19,19 @@ public class SecurityFilter implements Filter {
 
         String url = request.getRequestURI();
         url = url.replace("/", "");
-        if(!SecurityConfig.isSecured(url)){
+        if (!SecurityConfig.isSecured(url)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
 
-        if(user==null){
-            if(url.equals("/login")){
+        if (user == null) {
+            if (url.equals("/login")) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
         }
 
-        if(user!=null) {
+        if (user != null) {
             if (SecurityConfig.isAccessAllowed(url, user.getAuthorities())) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {

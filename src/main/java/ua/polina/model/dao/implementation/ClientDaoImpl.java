@@ -36,7 +36,7 @@ public class ClientDaoImpl implements ClientDao {
                 entity.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
-            if(e.getSQLState().equals("23505")){
+            if (e.getSQLState().equals("23505")) {
                 throw new DataExistsException("passport.exists");
             }
             LOGGER.error("SQL State: " + e.getSQLState() + e.getMessage());
@@ -93,7 +93,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public List<Client> findAll(Integer offset, Integer limit) {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_CLIENT_FIND_ALL_PAGINATION)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstants.SQL_CLIENT_FIND_ALL_PAGINATION)) {
             preparedStatement.setInt(1, limit);
             preparedStatement.setInt(2, offset);
             return findClientsByPreparedStatement(preparedStatement);

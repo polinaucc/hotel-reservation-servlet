@@ -8,11 +8,11 @@ public class TransactionalDaoFactory extends DaoFactoryImpl {
     private Connection connection;
 
     @Override
-    public Connection getConnection(){
+    public Connection getConnection() {
         System.out.println("In my method");
         if (Objects.isNull(connection)) {
             try {
-                connection =  ConnectionPool.getDataSource().getConnection();
+                connection = ConnectionPool.getDataSource().getConnection();
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);

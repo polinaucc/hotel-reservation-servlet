@@ -14,8 +14,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddRoomCommand extends MultipleMethodCommand {
-    private  final DescriptionService descriptionService;
-    private  final RoomService roomService;
+    private final DescriptionService descriptionService;
+    private final RoomService roomService;
     private static final Logger LOGGER = LogManager.getLogger(AddRoomCommand.class);
     private ResourceBundle rb;
 
@@ -42,8 +42,7 @@ public class AddRoomCommand extends MultipleMethodCommand {
                     .orElseThrow(() -> new IllegalArgumentException("no.description"));
             roomService.saveRoom(roomDto, description);
             return "/ok.jsp";
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             LOGGER.warn(rb.getString(e.getMessage()));
             request.setAttribute("smthError", e.getMessage());
             return "/error.jsp";

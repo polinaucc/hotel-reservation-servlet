@@ -15,8 +15,8 @@ import java.util.Optional;
 public class RequestService {
     private final DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void saveNewRequest(RequestDto requestDto, Client client, Description description){
-        try(RequestDao requestDao = daoFactory.createRequestDao()) {
+    public void saveNewRequest(RequestDto requestDto, Client client, Description description) {
+        try (RequestDao requestDao = daoFactory.createRequestDao()) {
             Request request = new Request();
             request.setClient(client);
             request.setDescription(description);
@@ -29,17 +29,17 @@ public class RequestService {
         }
     }
 
-    public List<Request> getAllRequests(){
-        try(RequestDao requestDao = daoFactory.createRequestDao()) {
-           return requestDao.findAll();
+    public List<Request> getAllRequests() {
+        try (RequestDao requestDao = daoFactory.createRequestDao()) {
+            return requestDao.findAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
     }
 
-    public List<Request> getAllRequestsPagination(Integer offset, Integer limit){
-        try(RequestDao requestDao = daoFactory.createRequestDao()){
+    public List<Request> getAllRequestsPagination(Integer offset, Integer limit) {
+        try (RequestDao requestDao = daoFactory.createRequestDao()) {
             return requestDao.findAll(offset, limit);
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,8 +47,8 @@ public class RequestService {
         return new ArrayList<>();
     }
 
-    public Optional<Request> getRequestById(Long id){
-        try(RequestDao requestDao = daoFactory.createRequestDao()) {
+    public Optional<Request> getRequestById(Long id) {
+        try (RequestDao requestDao = daoFactory.createRequestDao()) {
             return Optional.of(requestDao.findById(id));
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,8 +56,8 @@ public class RequestService {
         return Optional.empty();
     }
 
-    public void update(Request request, Status status){
-        try(RequestDao requestDao = daoFactory.createRequestDao()) {
+    public void update(Request request, Status status) {
+        try (RequestDao requestDao = daoFactory.createRequestDao()) {
             request.setStatus(status);
             requestDao.update(request);
         } catch (Exception e) {
@@ -65,8 +65,8 @@ public class RequestService {
         }
     }
 
-    public List<Request> getRequestsByClient(Client client){
-        try(RequestDao requestDao = daoFactory.createRequestDao()) {
+    public List<Request> getRequestsByClient(Client client) {
+        try (RequestDao requestDao = daoFactory.createRequestDao()) {
             return requestDao.findByClient(client.getId());
         } catch (Exception e) {
             e.printStackTrace();

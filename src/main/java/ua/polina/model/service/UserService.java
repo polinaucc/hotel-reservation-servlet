@@ -9,8 +9,8 @@ import java.util.Optional;
 public class UserService {
     private final DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public Optional<User> getUserByUsername(String username){
-        try(UserDao userDao = daoFactory.createUserDao()){
+    public Optional<User> getUserByUsername(String username) {
+        try (UserDao userDao = daoFactory.createUserDao()) {
             return userDao.findByUsername(username);
         } catch (Exception e) {
             e.printStackTrace();

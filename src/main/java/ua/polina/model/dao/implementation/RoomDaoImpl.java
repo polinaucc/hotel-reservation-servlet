@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class RoomDaoImpl implements RoomDao {
     private final Connection connection;
-    private final DaoFactory daoFactory= DaoFactory.getInstance();
+    private final DaoFactory daoFactory = DaoFactory.getInstance();
     private static Logger LOGGER = LogManager.getLogger(RoomDaoImpl.class);
 
     public RoomDaoImpl(Connection connection) {
@@ -138,7 +138,7 @@ public class RoomDaoImpl implements RoomDao {
         RoomMapper roomMapper = new RoomMapper();
         DescriptionDao descriptionDao = daoFactory.createDescriptionDao();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             Room room = roomMapper.resultSetToEntity(resultSet);
             room = roomMapper.makeUnique(rooms, room);
 

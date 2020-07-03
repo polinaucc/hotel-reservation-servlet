@@ -49,6 +49,6 @@
     </c:forEach>
     </tbody>
 </table>
-<a href="/" ><fmt:message key="home"/></a>
+<a href="/"><fmt:message key="home"/></a>
 </body>
 </html>

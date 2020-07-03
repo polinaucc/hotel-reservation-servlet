@@ -16,8 +16,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class ReservationService {
     private final DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void saveReservation(Request request, Room room){
-        try(ReservationDao reservationDao = daoFactory.createReservationDao()) {
+    public void saveReservation(Request request, Room room) {
+        try (ReservationDao reservationDao = daoFactory.createReservationDao()) {
             Reservation reservation = new Reservation();
             reservation.setRequest(request);
             reservation.setRoom(room);
@@ -29,17 +29,17 @@ public class ReservationService {
         }
     }
 
-    public Optional<Reservation> getReservationByRequest(Request request){
-        try(ReservationDao reservationDao = daoFactory.createReservationDao()) {
-           return reservationDao.findByRequest(request.getId());
+    public Optional<Reservation> getReservationByRequest(Request request) {
+        try (ReservationDao reservationDao = daoFactory.createReservationDao()) {
+            return reservationDao.findByRequest(request.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
     }
 
-    public List<Reservation> getAllReservations(){
-        try(ReservationDao reservationDao = daoFactory.createReservationDao()){
+    public List<Reservation> getAllReservations() {
+        try (ReservationDao reservationDao = daoFactory.createReservationDao()) {
             return reservationDao.findAll();
         } catch (Exception e) {
             e.printStackTrace();

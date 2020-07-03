@@ -91,7 +91,7 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="apply"/></button>
         </form>
     </section>
-    <a href="/" ><fmt:message key="home"/></a>
+    <a href="/"><fmt:message key="home"/></a>
 </div>
 </body>
 </html>

@@ -22,7 +22,7 @@ public class NotBlankValidatorTest {
     }
 
     @Test
-    public void validate(){
+    public void validate() {
         Throwable thrown = catchThrowable(() -> {
             notBlankValidator.validate(Mockito.any(HttpServletRequest.class), "");
         });
@@ -30,7 +30,7 @@ public class NotBlankValidatorTest {
     }
 
     @Test
-    public void validateNotBlankField(){
+    public void validateNotBlankField() {
         Throwable thrown = catchThrowable(() -> {
             notBlankValidator.validate(Mockito.any(HttpServletRequest.class), "Not blank");
         });

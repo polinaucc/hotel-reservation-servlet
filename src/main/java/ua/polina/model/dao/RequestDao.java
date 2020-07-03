@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface RequestDao extends Dao<Request> {
     List<Request> findByClient(Long clientId);
+
     Integer countAll();
 }

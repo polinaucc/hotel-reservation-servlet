@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.Assert.*;
 
 public class RangeValidatorTest {
 
@@ -20,7 +19,7 @@ public class RangeValidatorTest {
     }
 
     @Test
-    public void validateRight(){
+    public void validateRight() {
         Throwable thrown = catchThrowable(() -> {
             rangeValidator.validate(Mockito.any(HttpServletRequest.class), "-----");
         });
@@ -28,7 +27,7 @@ public class RangeValidatorTest {
     }
 
     @Test
-    public void validateWrong(){
+    public void validateWrong() {
         Throwable thrown = catchThrowable(() -> {
             rangeValidator.validate(Mockito.any(HttpServletRequest.class), "------------");
         });

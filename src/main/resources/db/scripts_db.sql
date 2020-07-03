@@ -149,7 +149,7 @@ INSERT INTO user_role (user_id, authorities)
 VALUES (2, 'ADMIN');
 
 INSERT INTO client (birthday, first_name, middle_name, last_name, passport, user_id, first_name_uk, middle_name_uk, last_name_uk)
-VALUES ('1984-12-10', 'Test', 'Testovich', 'Testenko', 'BT111111', 1, 'Тест', 'Тестович', 'Тестенко' );
+VALUES ('1984-12-10', 'Artem', 'Olehovych', 'Kravchenko', 'BT111111', 1, 'Артем', 'Олегович', 'Кравченко' );
 
 INSERT INTO description (cost, count_beds, count_persons, room_type)
 VALUES (1520.00, 2, 3, 'BUSINESS');

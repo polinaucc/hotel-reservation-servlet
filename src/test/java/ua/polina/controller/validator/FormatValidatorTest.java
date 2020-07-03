@@ -6,10 +6,8 @@ import org.mockito.Mockito;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class FormatValidatorTest {
     /**

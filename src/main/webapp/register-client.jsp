@@ -79,7 +79,8 @@
                            value="<%=request.getParameter("middle_name")%>"/>
                 </div>
                 <div class="error">
-                    <c:if test="${not empty errors['middle_name_uk'][0]}"><fmt:message key="${errors['middle_name_uk'][0]}"/></c:if>
+                    <c:if test="${not empty errors['middle_name_uk'][0]}"><fmt:message
+                            key="${errors['middle_name_uk'][0]}"/></c:if>
                 </div>
                 <div>
                     <input type="text" placeholder="<fmt:message key="placeholder.middle.name.uk"/>" required=""

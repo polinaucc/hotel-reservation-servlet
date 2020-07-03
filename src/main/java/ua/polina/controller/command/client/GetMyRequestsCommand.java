@@ -37,8 +37,7 @@ public class GetMyRequestsCommand implements Command {
             List<Request> requests = requestService.getRequestsByClient(client);
             request.setAttribute("requests", requests);
             return "/my-requests.jsp";
-        }
-        catch (IllegalArgumentException ie){
+        } catch (IllegalArgumentException ie) {
             LOGGER.warn(rb.getString(ie.getMessage()));
             request.setAttribute("smthError", ie.getMessage());
             return "/error.jsp";

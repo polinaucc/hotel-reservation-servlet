@@ -6,7 +6,6 @@ import ua.polina.controller.command.MultipleMethodCommand;
 import ua.polina.controller.validator.DateSequenceValidator;
 import ua.polina.controller.validator.DateValidator;
 import ua.polina.controller.validator.Option;
-import ua.polina.controller.validator.Validator;
 import ua.polina.model.dto.RequestDto;
 import ua.polina.model.entity.Client;
 import ua.polina.model.entity.Description;
@@ -64,13 +63,11 @@ public class AddRequestCommand extends MultipleMethodCommand {
                 request.setAttribute("error", error);
                 return "/add-request.jsp";
             }
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             LOGGER.warn(rb.getString(e.getMessage()));
             request.setAttribute("argumentError", e.getMessage());
             return "/add-request.jsp";
-        }
-        catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             request.setAttribute("error", "wrong.date.format");
             return "/add-request.jsp";
         }

@@ -13,7 +13,7 @@ public class Description {
     @Override
     public String toString() {
         return roomType + " for " + countOfPersons + " persons " + "with " +
-                countOfBeds +" beds" + "\n cost per night is " + costPerNight;
+                countOfBeds + " beds" + "\n cost per night is " + costPerNight;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Description {
         return countOfPersons == that.countOfPersons &&
                 countOfBeds == that.countOfBeds &&
                 roomType == that.roomType &&
-                costPerNight.compareTo(that.costPerNight)==0;
+                costPerNight.compareTo(that.costPerNight) == 0;
 
     }
 
