@@ -26,20 +26,14 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RoomServiceTest {
-
     @Mock
     DaoFactory daoFactory;
-
     @Mock
     RoomDao roomDao;
-
     RoomDto roomDto;
-
     Description description;
-
     @InjectMocks
     RoomService roomService;
-
     Room room;
 
     @Before

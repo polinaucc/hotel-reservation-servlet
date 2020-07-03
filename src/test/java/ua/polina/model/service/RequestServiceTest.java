@@ -25,22 +25,15 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RequestServiceTest {
-
     Request request;
-
     @Mock
     RequestDto requestDto;
-
     Client client;
-
     Description description;
-
     @Mock
     RequestDao requestDao;
-
     @Mock
     DaoFactory daoFactory;
-
     @InjectMocks
     RequestService requestService;
 

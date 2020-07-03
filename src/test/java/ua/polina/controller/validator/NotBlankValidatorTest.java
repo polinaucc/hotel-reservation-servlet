@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 public class NotBlankValidatorTest {
-
     NotBlankValidator notBlankValidator;
 
     @Before

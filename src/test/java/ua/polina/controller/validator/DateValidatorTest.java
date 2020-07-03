@@ -13,8 +13,6 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 
 @RunWith(JUnit4.class)
 public class DateValidatorTest {
-
-
     DateValidator dateValidator1;
     DateValidator dateValidator2;
 

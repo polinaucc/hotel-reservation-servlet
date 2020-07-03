@@ -16,10 +16,10 @@ import java.util.ResourceBundle;
 
 
 public class AddReservationCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(AddReservationCommand.class);
     private final RoomService roomService;
     private final ReservationService reservationService;
     private final RequestService requestService;
-    private static final Logger LOGGER = LogManager.getLogger(AddReservationCommand.class);
     private ResourceBundle rb;
 
 

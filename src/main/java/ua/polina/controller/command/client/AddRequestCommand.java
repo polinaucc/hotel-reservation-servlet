@@ -23,10 +23,10 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddRequestCommand extends MultipleMethodCommand {
+    private static final Logger LOGGER = LogManager.getLogger(AddRequestCommand.class);
     private final RequestService requestService;
     private final DescriptionService descriptionService;
     private final ClientService clientService;
-    private final Logger LOGGER = LogManager.getLogger(AddRequestCommand.class);
     private ResourceBundle rb;
 
     public AddRequestCommand(RequestService requestService, DescriptionService descriptionService, ClientService clientService) {

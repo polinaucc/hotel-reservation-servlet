@@ -13,9 +13,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class GetReservationInfoCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(GetReservationInfoCommand.class);
     private final RequestService requestService;
     private final ReservationService reservationService;
-    private static final Logger LOGGER = LogManager.getLogger(GetReservationInfoCommand.class);
     private ResourceBundle rb;
 
     public GetReservationInfoCommand(RequestService requestService, ReservationService reservationService) {

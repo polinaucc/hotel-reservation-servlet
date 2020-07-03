@@ -19,10 +19,10 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class FindRoomCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(FindRoomCommand.class);
     private final RequestService requestService;
     private final RoomService roomService;
     private final ReservationService reservationService;
-    private static final Logger LOGGER = LogManager.getLogger(FindRoomCommand.class);
     private ResourceBundle rb;
 
     public FindRoomCommand(RequestService requestService, RoomService roomService, ReservationService reservationService) {

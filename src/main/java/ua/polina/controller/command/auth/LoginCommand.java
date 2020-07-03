@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 public class LoginCommand extends MultipleMethodCommand {
-    private UserService userService;
     private static final Logger LOGGER = LogManager.getLogger(LoginCommand.class);
+    private UserService userService;
 
     public LoginCommand(UserService userService) {
         this.userService = userService;

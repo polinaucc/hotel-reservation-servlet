@@ -10,18 +10,20 @@ import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 /**
+ * This class is used for date validation to check if it is in
+ * the past or in the future
+ *
  * @author Polina Serhiienko
- * <p>
- * This class is used for date validation to check if it is in the past or in the future
  */
 public class DateValidator implements Validator {
     /**
-     * It's an option that determines the type of check: the date was in the past or should be in the future
+     * It's an option field that determines the type of check:
+     * the date was in the past or should be in the future
      */
     private Option option;
 
     /**
-     * Instantiates a new Date validator.
+     * Constructor, instantiates a new Date validator.
      *
      * @param option the option
      */
@@ -30,7 +32,7 @@ public class DateValidator implements Validator {
     }
 
     /**
-     * check if the date was in the past and if the person is full-aged
+     * Method checks if the date was in the past and if the person is full-aged
      *
      * @param field the date from the form
      * @throws DateException date exception
@@ -47,7 +49,7 @@ public class DateValidator implements Validator {
     }
 
     /**
-     * check if the date should be in the future
+     * Method checks if the date should be in the future
      *
      * @param field the date from the form
      * @throws DateException date exception

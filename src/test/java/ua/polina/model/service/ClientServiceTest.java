@@ -30,30 +30,20 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceTest {
-
     Client client;
-
     @Mock
     TransactionalDaoFactory transactionalDaoFactory;
-
     SignUpDto signUpDto;
-
     User user;
-
     UserRole userRole;
-
     @Mock
     ClientDao clientDao;
-
     @Mock
     UserDao userDao;
-
     @Mock
     UserRoleDao userRoleDao;
-
     @InjectMocks
     ClientService clientService;
-
 
     @Before
     public void setUp() throws Exception {

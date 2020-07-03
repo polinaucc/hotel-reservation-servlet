@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public final class FieldHelper {
-
     private static final VarHandle MODIFIERS;
 
     static {

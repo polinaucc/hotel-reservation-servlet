@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
 
 
 public class AddDescriptionCommand extends MultipleMethodCommand {
-    private final DescriptionService descriptionService;
     private static final Logger LOGGER = LogManager.getLogger(AddDescriptionCommand.class);
+    private final DescriptionService descriptionService;
     private ResourceBundle rb;
 
     public AddDescriptionCommand(DescriptionService descriptionService) {

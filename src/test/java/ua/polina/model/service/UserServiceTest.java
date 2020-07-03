@@ -18,16 +18,12 @@ import java.util.Set;
 import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
-
     @Mock
     DaoFactory daoFactory;
-
     @Mock
     UserDao userDao;
-
     @InjectMocks
     UserService userService;
-
     User user;
 
     @Before

@@ -14,9 +14,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddRoomCommand extends MultipleMethodCommand {
+    private static final Logger LOGGER = LogManager.getLogger(AddRoomCommand.class);
     private final DescriptionService descriptionService;
     private final RoomService roomService;
-    private static final Logger LOGGER = LogManager.getLogger(AddRoomCommand.class);
     private ResourceBundle rb;
 
     public AddRoomCommand(DescriptionService descriptionService, RoomService roomService) {

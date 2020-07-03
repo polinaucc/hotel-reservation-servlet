@@ -6,10 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class SessionLocaleFilter implements Filter {
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -24,6 +22,5 @@ public class SessionLocaleFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

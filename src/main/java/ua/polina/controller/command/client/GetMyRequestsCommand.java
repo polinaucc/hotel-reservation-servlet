@@ -16,9 +16,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class GetMyRequestsCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(GetMyRequestsCommand.class);
     private final RequestService requestService;
     private final ClientService clientService;
-    private final Logger LOGGER = LogManager.getLogger(GetMyRequestsCommand.class);
     private ResourceBundle rb;
 
     public GetMyRequestsCommand(RequestService requestService, ClientService clientService) {

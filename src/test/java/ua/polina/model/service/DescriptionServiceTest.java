@@ -29,20 +29,13 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DescriptionServiceTest {
-
-
     @Mock
     DaoFactory daoFactory;
-
     RequestDto requestDto;
-
     Description description;
-
     @Mock
     DescriptionDao descriptionDao;
-
     DescriptionDto descriptionDto;
-
     @InjectMocks
     DescriptionService descriptionService;
 

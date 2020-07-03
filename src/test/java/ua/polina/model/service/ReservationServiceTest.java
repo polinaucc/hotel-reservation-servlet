@@ -24,20 +24,14 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReservationServiceTest {
-
     Request request;
-
     Room room;
-
     @Mock
     DaoFactory daoFactory;
-
     @Mock
     ReservationDao reservationDao;
-
     @InjectMocks
     ReservationService reservationService;
-
     Reservation reservation;
 
     @Before
